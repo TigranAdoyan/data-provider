@@ -1,13 +1,13 @@
 const { Router } = require('express');
 
-const crmRouter = require('express').Router();
+const crm = Router();
 
 /** @param {Router} parentRouter */
 module.exports = (parentRouter) => {
   /**
    * Routes
    */
-  require('./crm/router')(crmRouter);
+  require('./crm/router')(crm);
 
-  parentRouter.use('/api', crmRouter); 
+  parentRouter.use('/api', crm); 
 };

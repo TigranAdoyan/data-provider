@@ -1,12 +1,10 @@
 const { Router } = require("express");
-const projectValidator = require('../../../../middlewares/project-validator');
 const auth = require('../../../../middlewares/auth');
 
 /** @param {Router} router */
 module.exports = (router) => {
   router.get('/selection2market',
     auth,
-    projectValidator,
     async (req, res, next) => {
       try {
         res.json({

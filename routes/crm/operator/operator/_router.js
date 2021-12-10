@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const router = require('express').Router();
+const router = Router();
 
 /** @param {Router} parentRouter */
 module.exports = (parentRouter) => {
