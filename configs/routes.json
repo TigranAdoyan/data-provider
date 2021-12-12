@@ -1,0 +1,84 @@
+{
+  "routesStr": [
+    "api/crm/operator/client/activity_feed",
+    "api/crm/operator/client/balance_log",
+    "api/crm/operator/client/labels",
+    "api/crm/operator/client/limits",
+    "api/crm/operator/client",
+    "api/crm/operator/gaming/bets",
+    "api/crm/operator/gaming/sport_bets",
+    "api/crm/operator/operator/abstract2tag",
+    "api/crm/operator/operator/bonuses",
+    "api/crm/operator/operator/category",
+    "api/crm/operator/operator/games",
+    "api/crm/operator/operator/info",
+    "api/crm/operator/operator/providers",
+    "api/crm/operator/operator/participant2operator",
+    "api/crm/operator/operator/region2operator",
+    "api/crm/operator/operator/tournament2operator",
+    "api/crm/operator/payments/transactions",
+    "api/crm/platform/gaming/selection2market",
+    "api/crm/platform/gaming/markets",
+    "api/crm/platform/gaming/matches",
+    "api/crm/platform/gaming/participants",
+    "api/crm/platform/gaming/regions",
+    "api/crm/platform/gaming/selections",
+    "api/crm/platform/gaming/tournaments",
+    "api/crm/platform/operator/info",
+    "api/crm/platform/payments/currencies",
+    "api/crm/platform/payments/exchange",
+    "api/auth"
+  ],
+  "routesObj": {
+    "api": {
+      "crm": {
+        "operator": {
+          "client": {
+            "activity_feed": true,
+            "balance_log": true,
+            "labels": true,
+            "limits": true,
+            "": true
+          },
+          "gaming": {
+            "bets": true,
+            "sport_bets": true
+          },
+          "operator": {
+            "abstract2tag": true,
+            "bonuses": true,
+            "category": true,
+            "games": true,
+            "info": true,
+            "providers": true,
+            "participant2operator": true,
+            "region2operator": true,
+            "tournament2operator": true
+          },
+          "payments": {
+            "transactions": true
+          }
+        },
+        "platform": {
+          "gaming": {
+            "selection2market": true,
+            "markets": true,
+            "matches": true,
+            "participants": true,
+            "regions": true,
+            "selections": true,
+            "tournaments": true
+          },
+          "operator": {
+            "info": true
+          },
+          "payments": {
+            "currencies": true,
+            "exchange": true
+          }
+        }
+      },
+      "auth": true
+    }
+  }
+}
