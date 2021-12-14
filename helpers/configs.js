@@ -1,27 +1,43 @@
 module.exports = {
   db: {
     mysql: {
-      client: 'mysql',
+      client: 'mysql2',
       connection: {
         host: process.env.MYSQL_HOST,
         user: process.env.MYSQL_USER,
         password: process.env.MYSQL_PASS,
-        database: process.env.MYSQL_DB
+        database: process.env.MYSQL_DB,
+        typeCast: (field, next) => {
+            if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                const bit = field.string();
+                const b = (bit === null) ? null : bit.charCodeAt(0);
+                return !!b;
+            }
+            return next();
+        },
       }
     },
   },
-  
+
   projects: {
     list: {
       PMBETTZ: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
             }
           }
         },
@@ -38,12 +54,20 @@ module.exports = {
       VAMOSETH: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
             }
           }
         },
@@ -59,12 +83,20 @@ module.exports = {
       HABESHAETH: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
             }
           }
         },
@@ -80,12 +112,20 @@ module.exports = {
       PMBETKE: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
             }
           }
         },
@@ -102,12 +142,21 @@ module.exports = {
       PMBETZM: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
+
             }
           }
         },
@@ -125,12 +174,20 @@ module.exports = {
       MLOTT: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
             }
           }
         },
@@ -147,12 +204,21 @@ module.exports = {
       TOTOBOOM: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
+
             }
           }
         },
@@ -169,12 +235,21 @@ module.exports = {
       BETWIM: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
+
             }
           }
         },
@@ -192,12 +267,21 @@ module.exports = {
       YULDUZBET: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
+
             }
           }
         },
@@ -214,12 +298,21 @@ module.exports = {
       CASHBAHIS: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
+
             }
           }
         },
@@ -237,12 +330,21 @@ module.exports = {
       PMBETNG: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
+
             }
           }
         },
@@ -259,12 +361,21 @@ module.exports = {
       SHOOT: {
         db: {
           mysql: {
-            client: 'mysql',
+            client: 'mysql2',
             connection: {
               host: process.env.MYSQL_HOST,
               user: process.env.MYSQL_USER,
               password: process.env.MYSQL_PASS,
-              database: process.env.MYSQL_DB
+              database: process.env.MYSQL_DB,
+              typeCast: (field, next) => {
+                  if (field.type.toUpperCase() === 'BIT' && field.length == 1) {
+                      const bit = field.string();
+                      const b = (bit === null) ? null : bit.charCodeAt(0);
+                      return !!b;
+                  }
+                  return next();
+              },
+
             }
           }
         },
