@@ -1,10 +1,12 @@
 require('dotenv').config({ path: __dirname + '/.env' });
+const routeFinder = require('./helpers/route-finder');
 
 global._ = require('underscore');
 global._configs = require('./helpers/configs');
 global._projects = require('./helpers/projects')();
 
 const knex = require('knex')(_configs.db.mysql);
+const response = require('./middlewares/response');
 const errorHandler = require('./middlewares/error-handler');
 const router = require('./routes/router');
 
@@ -20,6 +22,9 @@ _projects.init(knex, async (result, err) => {
 
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
+  app.use(response);
   router(app);
   app.use(errorHandler);
+
+  routeFinder(app);
 });
