@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+
+  boanalytics:
+    hostname: crm-data-provider
+    container_name: "crm-data-provider"
+    image: registry.betunit.com/data-ops/crm-data-provider:v0.0.2
+    ports:
+      - "3022:3002"
+    environment:
+      - TZ=Africa/Dar_es_Salaam
+      - NODE_ENV=production
