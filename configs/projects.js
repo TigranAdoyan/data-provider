@@ -3,7 +3,7 @@ module.exports = {
     PMBETTZ: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -33,7 +33,7 @@ module.exports = {
     VAMOSETH: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -62,7 +62,7 @@ module.exports = {
     HABESHAETH: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -91,7 +91,7 @@ module.exports = {
     PMBETKE: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -121,7 +121,7 @@ module.exports = {
     PMBETZM: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -152,7 +152,7 @@ module.exports = {
     MLOTT: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -182,7 +182,7 @@ module.exports = {
     TOTOBOOM: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -212,7 +212,7 @@ module.exports = {
     BETWIM: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -243,7 +243,7 @@ module.exports = {
     YULDUZBET: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -273,7 +273,7 @@ module.exports = {
     CASHBAHIS: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -304,7 +304,7 @@ module.exports = {
     PMBETNG: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -334,7 +334,7 @@ module.exports = {
     SHOOT: {
       db: {
         mysql: {
-          client: 'mysql',
+          client: 'mysql2',
           connection: {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
