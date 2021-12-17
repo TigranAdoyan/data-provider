@@ -15,6 +15,7 @@ module.exports = {
           throw new AppError(`Access denied for project ${req.headers.project}`, 403);
         }
 
+        req.project = req.headers.project;
         next();
       } catch (e) {
         return next(e);
