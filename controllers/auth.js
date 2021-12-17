@@ -2,10 +2,7 @@ const AppError = require('../managers/app-error');
 const TokenManager = require('../managers/token');
 
 module.exports = class ClientController {
-  /**
-   * @static
-   * @type {import('express').RequestHandler}
-   */
+  /** @type {import('express').RequestHandler} */
   static auth = async (req, res, next) => {
     try {
       const token = await TokenManager.authToken(req.body.username, req.body.password);

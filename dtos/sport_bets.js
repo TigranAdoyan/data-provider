@@ -1,0 +1,25 @@
+module.exports = () => {
+  return {
+    id: '',
+    client_id: '',
+    operator_id: '',
+    amount: '',
+    currency: '',
+    amount: '',
+    main_currency: '',
+    type: '',
+    status: '',
+    odd: '',
+    possible_win: '',
+    provider_id: '',
+    provider_title: '',
+    created_at: '',
+    updated_at: '',
+    settled_at: '',
+    paid_at: '',
+    locale: '',
+    bet_type: '',
+    cart: '',
+    balance_log_id: '',
+  };
+};

@@ -1,3 +1,8 @@
+/**
+ * @typedef {import('../types').db.User} User
+ * @typedef {import('../types').db.Transaction} Transaction
+ */
+
 const knex = require('knex');
 
 module.exports = class DB {
@@ -25,6 +30,11 @@ module.exports = class DB {
   }
 
   /** @private */
+  static getResultArr(result) {
+    return (result && result[0]) || null;
+  }
+
+  /** @private */
   static getResult(result) {
     return (result && result[0] && result[0][0]) || null;
   }
@@ -35,17 +45,38 @@ module.exports = class DB {
   }
 
   /**
-   * @param {Array<number | string> | number | string} idSelector
+   * @param {Array<number | string> | number | string} id
+   * @returns {Promise<User>}
    */
-  async getUserById(idSelector) {
-    if (typeof idSelector === 'number' || typeof idSelector === 'string') {
-      const result = await this.knex.raw(`SELECT * FROM ${this.table('users')} WHERE id = '${idSelector}'`);
-      return DB.getResult(result);
-    } else if (Array.isArray(idSelector)) {
-      return Promise.all(idSelector.map((id) => {
-        const result = this.knex.raw(`SELECT * FROM ${this.table('users')} WHERE id = '${id}'`);
-        return DB.getResult(result);
-      }));
-    }
+  async getUserById(id) {
+    const result = await this.knex.raw(`SELECT * FROM ${this.table('users')} WHERE id = ?`, [id]);
+    return DB.getResult(result);
+  }
+
+  /**
+   * @param {Array<number | string> | number | string} idArr
+   * @returns {Promise<User[]>}
+   */
+  async getUsersById(idArr) {
+    const result = await this.knex.raw(`SELECT * FROM ${this.table('users')} WHERE id IN (?)`, [idArr]);
+    return DB.getResultArr(result);
+  }
+
+  /**
+   * @param {Array<number | string> | number | string} id
+   * @returns {Promise<Transaction>}
+   */
+  async getTransactionById(id) {
+    const result = await this.knex.raw(`SELECT * FROM ${this.table('transactions')} WHERE id = ?`, [id]);
+    return DB.getResult(result);
+  }
+
+  /**
+   * @param {Array<number | string> | number | string} idArr
+   * @returns {Promise<Transaction[]>}
+   */
+  async getTransactionsById(idArr) {
+    const result = await this.knex.raw(`SELECT * FROM ${this.table('transactions')} WHERE id IN (?)`, [idArr]);
+    return DB.getResultArr(result);
   }
 }

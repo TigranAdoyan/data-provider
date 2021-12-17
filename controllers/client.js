@@ -1,83 +1,63 @@
 const AppError = require('../managers/app-error');
 const DB = require('../managers/db');
 
+const { clients } = require('../dtos');
+const { isArray } = require('underscore');
+
 module.exports = class ClientController {
-  /**
-   * @static
-   * @type {import('express').RequestHandler}
-   */
+  /** @type {import('express').RequestHandler} */
   static clients = async (req, res, next) => {
     try {
-      res.json({
-        error: true,
-        message: 'Not implemented'
-      });
+      const operatorInfo = _projects.projectConf(req.project);
+
+      if (isArray(req.body.usersId)) {
+        const users = await DB.project(req.project).getUsersById(req.body.usersId);
+        return res.success.data(users.map(user => clients(user, operatorInfo))).end();
+      }
+
+      const user = await DB.project(req.project).getUserById(req.body.usersId);
+      return res.success.data(clients(user, operatorInfo)).end();
     } catch (e) {
-      console.log('request error =>', e.message);
       next(e);
     }
   }
 
-  /**
-   * @static
-   * @type {import('express').RequestHandler}
-   */
-   static activity_feed = async (req, res, next) => {
+  /** @type {import('express').RequestHandler} */
+  static activity_feed = async (req, res, next) => {
     try {
-      res.json({
-        error: true,
-        message: 'Not implemented'
-      });
+      
+      res.error.msg('Not implemented').end();
     } catch (e) {
-      console.log('request error =>', e.message);
       next(e);
     }
   }
 
-  /**
-   * @static
-   * @type {import('express').RequestHandler}
-   */
-   static balance_log = async (req, res, next) => {
+  /** @type {import('express').RequestHandler} */
+  static balance_log = async (req, res, next) => {
     try {
-      res.json({
-        error: true,
-        message: 'Not implemented'
-      });
+      
+      res.error.msg('Not implemented').end();
     } catch (e) {
-      console.log('request error =>', e.message);
       next(e);
     }
   }
 
-  /**
-   * @static
-   * @type {import('express').RequestHandler}
-   */
-   static labels = async (req, res, next) => {
+  /** @type {import('express').RequestHandler} */
+  static labels = async (req, res, next) => {
     try {
-      res.json({
-        error: true,
-        message: 'Not implemented'
-      });
+      
+      res.error.msg('Not implemented').end();
     } catch (e) {
-      console.log('request error =>', e.message);
       next(e);
     }
   }
 
-  /**
-   * @static
-   * @type {import('express').RequestHandler}
-   */
-   static limits = async (req, res, next) => {
+  /** @type {import('express').RequestHandler} */
+  static limits = async (req, res, next) => {
     try {
-      res.json({
-        error: true,
-        message: 'Not implemented'
-      });
+      
+      res.error.msg('Not implemented').end();
     } catch (e) {
-      console.log('request error =>', e.message);
       next(e);
     }
   }
