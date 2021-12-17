@@ -360,6 +360,9 @@ module.exports = function () {
             "turbowof": "eg_wof_stakes",
             "casino": "bets_casino"
         },
+        /**
+         * @type {import('../types').db.Operator[]}
+         */
         headers: [],
         flat: [],
         init (knex, cb) {

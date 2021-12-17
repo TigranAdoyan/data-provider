@@ -26,5 +26,7 @@ _projects.init(knex, async (result, err) => {
   router(app);
   app.use(errorHandler);
 
-  routeFinder(app);
+  if(process.env.NODE_ENV != 'production') {
+    routeFinder(app, './configs');
+  }
 });

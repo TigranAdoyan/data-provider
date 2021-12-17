@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const { Router } = require("express");
 
 /**
@@ -58,8 +59,11 @@ function buildPath(obj, pathArr) {
   }
 }
 
-/** @type {Router} */
-module.exports = (router) => {
+/**
+ * @param {Router} router 
+ * @param {string} destination 
+ */
+module.exports = (router, destination) => {
   /** @type {string[][]} */
   const pathArrList = [];
   router._router.stack.forEach(getRoutes.bind(null, pathArrList, []));
@@ -77,7 +81,5 @@ module.exports = (router) => {
     routesObj
   };
 
-  fs.promises.writeFile('./configs/routes.json', JSON.stringify(result, null, 2));
-
-  return result;
+  fs.promises.writeFile(path.join(destination, 'routes.json'), JSON.stringify(result, null, 2));
 };
