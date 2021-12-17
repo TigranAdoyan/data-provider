@@ -1,4 +1,5 @@
 const AppError = require('../managers/app-error');
+const DB = require('../managers/db');
 
 const { currencies } = require('../dtos');
 
@@ -16,14 +17,14 @@ module.exports = class PaymentsController {
   static currencies = async (req, res, next) => {
     try {
       const currenciesSet = new Set();
-      const operators = [];
+      const currenciesArr = [];
       _projects.headers.forEach(operatorInfo => {
         if (!currenciesSet.has(operatorInfo.currency)) {
           currenciesSet.add(operatorInfo.currency);
-          operators.push(currencies(operatorInfo));
+          currenciesArr.push(currencies(operatorInfo));
         }
       });
-      return res.success.data([...operators]).end();
+      return res.success.data(currenciesArr).end();
     } catch (e) {
       next(e);
     }

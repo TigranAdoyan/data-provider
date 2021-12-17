@@ -2,20 +2,19 @@ const AppError = require('../managers/app-error');
 const DB = require('../managers/db');
 
 const { clients } = require('../dtos');
-const { isArray } = require('underscore');
 
 module.exports = class ClientController {
   /** @type {import('express').RequestHandler} */
-  static clients = async (req, res, next) => {
+  static client = async (req, res, next) => {
     try {
       const operatorInfo = _projects.projectConf(req.project);
 
-      if (isArray(req.body.usersId)) {
-        const users = await DB.project(req.project).getUsersById(req.body.usersId);
-        return res.success.data(users.map(user => clients(user, operatorInfo))).end();
-      }
+      // if (isArray(req.body.usersId)) {
+      //   const users = await DB.project(req.project).getUsersById(req.body.usersId);
+      //   return res.success.data(users.map(user => clients(user, operatorInfo))).end();
+      // }
 
-      const user = await DB.project(req.project).getUserById(req.body.usersId);
+      const user = await DB.project(req.project).getUserById(req.query.usersId);
       return res.success.data(clients(user, operatorInfo)).end();
     } catch (e) {
       next(e);
