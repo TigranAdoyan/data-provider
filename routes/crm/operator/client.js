@@ -14,7 +14,7 @@ module.exports = (parentRouter) => {
   router.get('/',
     query('usersId').exists().isInt(),
     validationResult,
-    ClientController.client
+    ClientController.clients
   );
 
   parentRouter.use('/client', router);

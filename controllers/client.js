@@ -5,7 +5,7 @@ const { clients } = require('../dtos');
 
 module.exports = class ClientController {
   /** @type {import('express').RequestHandler} */
-  static client = async (req, res, next) => {
+  static clients = async (req, res, next) => {
     try {
       const operatorInfo = _projects.projectConf(req.project);
 

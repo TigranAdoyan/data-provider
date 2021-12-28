@@ -106,8 +106,64 @@ interface Transaction {
   upload_id: number
 }
 
+interface S_bet {
+  id: number,
+  package_id: string,
+  date_created: Date | null,
+  date_calculated: Date | null,
+  date_paid: Date | null,
+  shop_id: number,
+  player_id: number,
+  employee_id: number,
+  status: number,
+  bet_amount: string,
+  payout_amount: number | null,
+  paid_amount: number | null,
+  total_odds: string,
+  total_rows: number,
+  total_matches: number,
+  ztype: number,
+  hash: string,
+  is_gb: boolean,
+  is_paid: boolean,
+  is_live: boolean,
+  is_recalc: boolean,
+  payout_option: number,
+  paid_shop_id: number,
+  paid_employee_id: number | null,
+  bonus: number | null,
+  bonus_type: number,
+  currency: string,
+  promo_type: string | null,
+  promo_code: string | null,
+  rate: string | null,
+  rater_id: string,
+  note: string,
+  meta: string,
+  payout_currency: string,
+  player_currency: string | null,
+  archived: boolean
+}
+
+interface Log_balance {
+  id: number,
+  user_id: number,
+  balance_old_value: string,
+  balance_new_value: string,
+  balance_diff: string,
+  created: Date
+  units_old_value: string,
+  units_new_value: string,
+  units_diff: string,
+  op: string,
+  fixed: number,
+  updated: Date | null,
+}
+
 export {
   User,
   Operator,
-  Transaction
+  Transaction,
+  S_bet,
+  Log_balance
 }

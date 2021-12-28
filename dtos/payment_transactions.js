@@ -16,7 +16,7 @@ module.exports = (transaction, operatorInfo, balance_log) => {
     type: transaction.op_type.split('-')[0],
     channel: '',
     binding: operatorInfo.binding,
-    balance_log_id: balance_log.id,                                      // ?
+    balance_log_id: '',                                      // ?
     payment_method: transaction.op_type.split('-').slice(1).join('-')
   };
 };

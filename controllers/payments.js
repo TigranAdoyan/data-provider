@@ -1,13 +1,14 @@
 const AppError = require('../managers/app-error');
 const DB = require('../managers/db');
 
-const { currencies } = require('../dtos');
+const { currencies, payment_transactions } = require('../dtos');
 
 module.exports = class PaymentsController {
-  /** @type {import('express').RequestHandler} */
+  /** @type {import('express').RequestHandler<, , {from:string,to:string}>} */
   static transactions = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      const trs = await DB.project(req.project).getTransactionsByRange(new Date(req.body.from), new Date(req.body.to));
+      res.stream(trs, tr => payment_transactions(tr, _projects.projectConf(req.project), {}));
     } catch (e) {
       next(e);
     }
