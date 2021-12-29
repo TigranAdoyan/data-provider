@@ -18,14 +18,7 @@ module.exports = class GamingController {
     try {
       const s_bets = await DB.project(req.project).getSportBetsByRange(new Date(req.body.from), new Date(req.body.to));
       res.stream(s_bets, async (s_bet) => {
-        let log_balance = null;
-        if (s_bet.date_paid) {
-          log_balance = await DB.project(req.project).getLogBalance({
-            op: s_bet.package_id,
-            created: s_bet.date_paid
-          });
-        }
-        return sport_bets(s_bet, log_balance);
+        return sport_bets(s_bet, s_bet);
       });
     } catch (e) {
       next(e);

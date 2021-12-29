@@ -5,6 +5,7 @@
  */
 
 const knex = require('knex');
+const TableFields = require('./table-fields');
 
 module.exports = class DB {
   constructor(project) {
@@ -13,6 +14,8 @@ module.exports = class DB {
     }
     /** @private */
     this.project = project;
+    /** @private @type {Map<string, TableFields>} */
+    this.fieldsList = new Map();
     /** @private */
     this.knex = knex(_projects.getProjectCredentials(project));
   }
@@ -45,7 +48,18 @@ module.exports = class DB {
     return _projects.getProjectTable(this.project, table);
   }
 
-
+  /** @private @param {string} table */
+  async fields(table) {
+    table = this.table(table);
+    if (!this.fieldsList.has(table)) {
+      const fieldsArr = DB.getResultArr(await this.knex.raw(`SHOW COLUMNS FROM ${table}`));
+      const splitted = table.split('.');
+      const db = splitted[0].substr(1, splitted[0].length - 2);
+      const tbl = splitted[1].substr(1, splitted[1].length - 2);
+      this.fieldsList.set(table, new TableFields(db, tbl, fieldsArr));
+    }
+    return this.fieldsList.get(table);
+  }
 
 
   /**
@@ -99,7 +113,23 @@ module.exports = class DB {
    * @returns {Promise<import('stream').Transform>}
    */
   async getSportBetsByRange(from, to) {
-    return this.knex.raw(`SELECT * FROM ${this.table('s_bets')} WHERE date_created BETWEEN ? AND ?`, [from, to]).stream();
+    const s_bets = this.table('s_bets');
+    const s_bets_fields = await this.fields('s_bets');
+    const log_balance = this.table('log_balance');
+    const log_balance_fields = await this.fields('log_balance');
+
+    return this.knex.raw(`
+      SELECT
+        ${log_balance_fields.getPrefixed()},
+        ${s_bets_fields.getPrefixed()}
+      FROM ${s_bets}
+        LEFT JOIN ${log_balance}
+        ON
+          ${s_bets}.is_paid IS TRUE
+          AND ${log_balance}.op = ${s_bets}.package_id
+          AND ${log_balance}.created = ${s_bets}.date_paid
+      WHERE ${s_bets}.date_created BETWEEN ? AND ?
+    `, [from, to]).stream();
   }
 
   /**
