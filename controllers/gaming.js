@@ -17,9 +17,7 @@ module.exports = class GamingController {
   static sport_bets = async (req, res, next) => {
     try {
       const s_bets = await DB.project(req.project).getSportBetsByRange(new Date(req.body.from), new Date(req.body.to));
-      res.stream(s_bets, async (s_bet) => {
-        return sport_bets(s_bet, s_bet);
-      });
+      res.stream(s_bets, s_bet => sport_bets(s_bet, s_bet));
     } catch (e) {
       next(e);
     }

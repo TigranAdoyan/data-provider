@@ -3,7 +3,7 @@
  */
 module.exports = (operatorInfo) => {
   return {
-    id: operatorInfo.project,
-    code: operatorInfo.currency
+    id:   operatorInfo.project,
+    code: [operatorInfo.currency]
   };
 };

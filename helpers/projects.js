@@ -426,9 +426,6 @@ module.exports = function () {
             if (!this.games_tables[game]) throw new AppError('Game not found => ' + game);
             return this.games_tables[game];
         },
-        getProjectDB (project) {
-            console.log(this.projectConf(project));
-        },
         getProjectTable (project, name) {
             var conf = this.projectConf(project);
             var version = conf ? conf.version : 0;

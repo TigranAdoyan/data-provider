@@ -1,7 +1,6 @@
 /**
  * @typedef {import('../types').db.User} User
  * @typedef {import('../types').db.Transaction} Transaction
- * @typedef {import('../types').db.Log_balance} Log_balance
  */
 
 const knex = require('knex');
@@ -34,12 +33,12 @@ module.exports = class DB {
   }
 
   /** @private */
-  static getResultArr(result) {
+  static resultArr(result) {
     return (result && result[0]) || null;
   }
 
   /** @private */
-  static getResult(result) {
+  static result(result) {
     return (result && result[0] && result[0][0]) || null;
   }
 
@@ -52,7 +51,7 @@ module.exports = class DB {
   async fields(table) {
     table = this.table(table);
     if (!this.fieldsList.has(table)) {
-      const fieldsArr = DB.getResultArr(await this.knex.raw(`SHOW COLUMNS FROM ${table}`));
+      const fieldsArr = DB.resultArr(await this.knex.raw(`SHOW COLUMNS FROM ${table}`));
       const splitted = table.split('.');
       const db = splitted[0].substr(1, splitted[0].length - 2);
       const tbl = splitted[1].substr(1, splitted[1].length - 2);
@@ -68,7 +67,7 @@ module.exports = class DB {
    */
   async getUserById(id) {
     const result = await this.knex.raw(`SELECT * FROM ${this.table('users')} WHERE id = ?`, [id]);
-    return DB.getResult(result);
+    return DB.result(result);
   }
 
   /**
@@ -77,7 +76,7 @@ module.exports = class DB {
    */
   async getUsersById(idArr) {
     const result = await this.knex.raw(`SELECT * FROM ${this.table('users')} WHERE id IN (?)`, [idArr]);
-    return DB.getResultArr(result);
+    return DB.resultArr(result);
   }
 
   /**
@@ -86,7 +85,7 @@ module.exports = class DB {
    */
   async getTransactionById(id) {
     const result = await this.knex.raw(`SELECT * FROM ${this.table('transactions')} WHERE id = ?`, [id]);
-    return DB.getResult(result);
+    return DB.result(result);
   }
 
   /**
@@ -95,7 +94,7 @@ module.exports = class DB {
    */
   async getTransactionsById(idArr) {
     const result = await this.knex.raw(`SELECT * FROM ${this.table('transactions')} WHERE id IN (?)`, [idArr]);
-    return DB.getResultArr(result);
+    return DB.resultArr(result);
   }
 
   /**
@@ -113,32 +112,24 @@ module.exports = class DB {
    * @returns {Promise<import('stream').Transform>}
    */
   async getSportBetsByRange(from, to) {
-    const s_bets = this.table('s_bets');
-    const s_bets_fields = await this.fields('s_bets');
-    const log_balance = this.table('log_balance');
-    const log_balance_fields = await this.fields('log_balance');
+    const sb = this.table('s_bets');
+    const lb = this.table('log_balance');
+
+    const sbf = await this.fields('s_bets');
+    const lbf = await this.fields('log_balance');
 
     return this.knex.raw(`
       SELECT
-        ${log_balance_fields.getPrefixed()},
-        ${s_bets_fields.getPrefixed()}
-      FROM ${s_bets}
-        LEFT JOIN ${log_balance}
+        ${sbf.getPrefixed({table: 'sb'})},
+        ${lbf.getPrefixed({table: 'lb'})}
+      FROM ${sb} sb
+        LEFT JOIN ${lb} lb
         ON
-          ${s_bets}.is_paid IS TRUE
-          AND ${log_balance}.op = ${s_bets}.package_id
-          AND ${log_balance}.created = ${s_bets}.date_paid
-      WHERE ${s_bets}.date_created BETWEEN ? AND ?
+              sb.is_paid IS TRUE
+          AND lb.op = sb.package_id
+          AND lb.created = sb.date_paid
+      WHERE 
+        sb.date_calculated BETWEEN ? AND ?
     `, [from, to]).stream();
   }
-
-  /**
-   * @returns {Promise<Log_balance>}
-   */
-  async getLogBalance(filterObj) {
-    const tables = Object.keys(filterObj);
-    const conditions = tables.join(' = ? AND ') + (tables.length > 0 ? ' = ?' : '');
-    const result = await this.knex.raw(`SELECT * FROM ${this.table('log_balance')} WHERE ${conditions}`, Object.values(filterObj));
-    return DB.getResult(result);
-  }
-}
+};
