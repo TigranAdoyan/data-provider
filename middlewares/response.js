@@ -15,10 +15,6 @@ module.exports = (req, res, next) => {
   res.success = ResponseManager.success(res);
   res.error = ResponseManager.error(res);
 
-  /** 
-   * @param {import('stream').Readable} readableStream
-   * @param {((chunk: any) => Promise<any>)[]} middlewares
-   */
   res.stream = (readableStream, ...middlewares) => {
     readableStream
       .on('error', errorHandler)
