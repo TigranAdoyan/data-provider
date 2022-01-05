@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { query } = require('express-validator');
+const { paginator } = require('../../../helpers/validators');
 const validationResult = require('../../../middlewares/validator');
 const ClientController = require('../../../controllers/client');
 
@@ -12,7 +12,7 @@ module.exports = (parentRouter) => {
   router.get('/labels', ClientController.labels);
   router.get('/limits', ClientController.limits);
   router.get('/',
-    query('usersId').exists().isInt(),
+    paginator,
     validationResult,
     ClientController.clients
   );

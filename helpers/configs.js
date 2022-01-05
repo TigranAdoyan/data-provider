@@ -1,4 +1,10 @@
+const defaultTemplate = require('../configs/db.js');
+
 module.exports = {
-  db: require('../configs/db.js'),
-  projects: require('../configs/projects.js')
+  db: defaultTemplate,
+  projects: require('../configs/projects.js'),
+  connection: (db) => {
+    defaultTemplate.mysql.connection.database = db;
+    return defaultTemplate.mysql;
+  }
 };
