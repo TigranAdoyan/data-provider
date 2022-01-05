@@ -160,10 +160,44 @@ interface Log_balance_prefixed {
   log_balance_updated: Date | null,
 }
 
+interface Xrate {
+  id: number,
+  currency: string,
+  rate: number,
+  updated_at: Date,
+  created_at: Date
+}
+
+interface Game_casino {
+  id: number,
+  name: string,
+  uuid: string,
+  url: string,
+  aggregator: string,
+  provider: string,
+  type: string,
+  has_freespins: number,
+  technology: string,
+  has_demo: number,
+  device_support: number,
+  image_bg: string,
+  image: string,
+  priority: number,
+  site_section: string,
+  marker_type: string | null,
+  marker_text: string | null,
+  deleted: number,     
+  production: number,
+  rtp: string,
+  frame_size: number
+}
+
 export {
   User,
   Operator,
   Transaction,
   S_bet_prefixed,
-  Log_balance_prefixed
+  Log_balance_prefixed,
+  Xrate,
+  Game_casino
 }

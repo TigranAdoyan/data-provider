@@ -19,16 +19,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino",
-        "turbokeno"
-      ]
+      }
     },
     VAMOSETH: {
       db: {
@@ -49,15 +40,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino"
-      ]
+      }
     },
     HABESHAETH: {
       db: {
@@ -78,15 +61,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino"
-      ]
+      }
     },
     PMBETKE: {
       db: {
@@ -107,16 +82,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino",
-        "turbokeno"
-      ]
+      }
     },
     PMBETZM: {
       db: {
@@ -137,17 +103,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino",
-        "turbokeno",
-        "turbowof"
-      ]
+      }
     },
     MLOTT: {
       db: {
@@ -168,16 +124,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino",
-        "turbokeno"
-      ]
+      }
     },
     TOTOBOOM: {
       db: {
@@ -198,16 +145,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino",
-        "turbokeno"
-      ]
+      }
     },
     BETWIM: {
       db: {
@@ -228,17 +166,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino",
-        "turbokeno",
-        "turbowof"
-      ]
+      }
     },
     YULDUZBET: {
       db: {
@@ -259,16 +187,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino",
-        "turbokeno"
-      ]
+      }
     },
     CASHBAHIS: {
       db: {
@@ -289,17 +208,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino",
-        "turbokeno",
-        "turbowof"
-      ]
+      }
     },
     PMBETNG: {
       db: {
@@ -320,16 +229,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino",
-        "turbokeno"
-      ]
+      }
     },
     SHOOT: {
       db: {
@@ -350,16 +250,7 @@ module.exports = {
             }
           }
         }
-      },
-      games: [
-        "sport",
-        "keno",
-        "wof",
-        "colorboom",
-        "toto",
-        "casino",
-        "turbokeno"
-      ]
+      }
     }
   }
 };

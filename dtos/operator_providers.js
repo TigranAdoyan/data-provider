@@ -1,10 +1,14 @@
-module.exports = () => {
+/**
+ * @param {import("../types/db").Game_casino} game_casino
+ * @param {import("../types/db").Operator} operatorInfo
+ */
+module.exports = (game_casino, operatorInfo) => {
   return {
-    id: '',
-    operator_id: '',
-    title: '',
-    order: '',
-    integrator: '',
-    status: ''
+    id:           game_casino.id,
+    operator_id:  operatorInfo.id,
+    title:        game_casino.name,
+    order:        '',                          // ?
+    integrator:   game_casino.aggregator,
+    status:       ''                           // ?
   };
 };

@@ -1,9 +1,9 @@
 /**
- * @param {import("../types").db.Operator} operatorInfo 
+ * @param {import("../types").db.Xrate} xrate 
  */
-module.exports = (operatorInfo) => {
+module.exports = (xrate) => {
   return {
-    id:   operatorInfo.project,
-    code: [operatorInfo.currency]
+    id:   xrate.id,
+    code: xrate.currency
   };
 };

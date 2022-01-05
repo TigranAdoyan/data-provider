@@ -1,7 +1,7 @@
 const AppError = require('../managers/app-error');
 const DB = require('../managers/db');
 
-const { operator_info } = require('../dtos');
+const { operator_info, operator_providers, operator_games } = require('../dtos');
 
 module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
@@ -34,7 +34,13 @@ module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
   static games = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      const operatorInfo = _projects.projectConf(req.project);
+      const games_casino = await DB.project(req.project).getGamesCasino(req.query.page, req.query.limit);
+
+      res.success.data({
+        ...games_casino,
+        data: games_casino.data.map(game_casino => operator_games(game_casino, operatorInfo))
+      }).end();
     } catch (e) {
       next(e);
     }
@@ -53,7 +59,13 @@ module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
   static providers = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      const operatorInfo = _projects.projectConf(req.project);
+      const games_casino = await DB.project(req.project).getGamesCasino(req.query.page, req.query.limit);
+
+      res.success.data({
+        ...games_casino,
+        data: games_casino.data.map(game_casino => operator_providers(game_casino, operatorInfo))
+      }).end();
     } catch (e) {
       next(e);
     }
