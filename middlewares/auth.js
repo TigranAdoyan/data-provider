@@ -1,20 +1,15 @@
 const { header } = require('express-validator');
 const AppError = require('../managers/app-error');
-const TokenManager = require('../managers/token');
+const AccessManager = require('../managers/access');
 const validator = require('../middlewares/validator');
 
 module.exports = {
   /** @type {import('express').RequestHandler[]} */
   project: [
-    header('authorization').exists().withMessage('Access token is required'),
     header('project').exists().toUpperCase().isIn(_projects.getNames()).withMessage('Invalid project'),
     validator,
     async (req, res, next) => {
       try {
-        if (!await TokenManager.verifyProject(req.headers.authorization, req.headers.project)) {
-          throw new AppError(`Access denied for project ${req.headers.project}`, 403);
-        }
-
         req.project = req.headers.project;
         next();
       } catch (e) {
@@ -32,7 +27,7 @@ module.exports = {
         const url = new URL('http://localhost' + req.originalUrl);
         const path = url.pathname;
 
-        if (!await TokenManager.verifyAccess(req.headers.authorization, path)) {
+        if (!await AccessManager.verifyAccess(req.headers.authorization, path, req.project || null)) {
           throw new AppError('Access denied for that resource', 403);
         }
 

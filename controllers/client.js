@@ -9,7 +9,7 @@ module.exports = class ClientController {
     try {
       const operatorInfo = _projects.projectConf(req.project);
       const users = await DB.project(req.project).getUsers(req.query.page, req.query.limit);
-
+      
       return res.success.data({
         ...users,
         data: users.data.map(user => clients(user, operatorInfo))

@@ -7,8 +7,9 @@ module.exports = class PaymentsController {
   /** @type {import('express').RequestHandler<, , {from:string,to:string}>} */
   static transactions = async (req, res, next) => {
     try {
-      const trs = await DB.project(req.project).getTransactionsByRange(new Date(req.body.from), new Date(req.body.to));
-      res.stream(trs, tr => payment_transactions(tr, _projects.projectConf(req.project), {}));
+      // const trs = await DB.project(req.project).getTransactionsByRange(new Date(req.body.from), new Date(req.body.to));
+      // res.stream(trs, tr => payment_transactions(tr, _projects.projectConf(req.project), {}));
+      res.error.msg('Not implemented').end();
     } catch (e) {
       next(e);
     }

@@ -26,7 +26,10 @@ _projects.init(knex, async (result, err) => {
   router(app);
   app.use(errorHandler);
 
-  if(process.env.NODE_ENV != 'production') {
-    routeFinder(app, './configs');
+  if (process.env.NODE_ENV != 'production') {
+    await routeFinder(app, './configs');
+
+    const TR = require('./helpers/token-routes');
+    console.log(await TR.byCredentials("user", "password"));
   }
 });

@@ -34,20 +34,20 @@ module.exports = class Paginator {
    * @template T
    * @returns {Promise<import("../types").PaginationResult<T>>} 
    */
-  async exec() {
+  async then(cb) {
     const result = await this._knexQueryBuilder
       .offset(this._limit * (this._page - 1))
       .limit(this._limit);
 
     const total = await this._knexQueryBuilder.clearSelect().offset(0).count('*');
 
-    return {
+    cb({
       current_page: Number(this._page),
       total_pages: Math.ceil(total[0]['count(*)'] / this._limit),
       current_count: result.length,
       total_count: Number(total[0]['count(*)']),
       limit: Number(this._limit),
       data: result
-    };
+    });
   }
 };

@@ -81,5 +81,5 @@ module.exports = (router, destination) => {
     routesObj
   };
 
-  fs.promises.writeFile(path.join(destination, 'routes.json'), JSON.stringify(result, null, 2));
+  return fs.promises.writeFile(path.join(destination, 'routes.json'), JSON.stringify(result, null, 2));
 };

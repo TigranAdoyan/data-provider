@@ -1,0 +1,135 @@
+{
+  "admin": {
+    "priority": 999999999,
+    "type": "allow",
+    "projects": {
+      "*": {
+        "api": {
+          "crm": {
+            "operator": true
+          }
+        }
+      },
+      "list": {}
+    },
+    "platform": {
+      "api": {
+        "crm": {
+          "platform": true
+        }
+      }
+    }
+  },
+
+  "gr1_a": {
+    "priority": 1000,
+    "type": "allow",
+    "projects": {
+      "list": {
+        "PMBETKE": {
+          "api": {
+            "crm": {
+              "operator": {
+                "operator": true,
+                "payments": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "platform": {}
+  },
+  "gr1_d": {
+    "priority": 1001,
+    "type": "deny",
+    "projects": {
+      "list": {
+        "PMBETKE": {
+          "api": {
+            "crm": {
+              "operator": {
+                "operator": {
+                  "participant2operator": true,
+                  "region2operator": true,
+                  "tournament2operator": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "platform": {}
+  },
+
+  "gr2_a": {
+    "priority": 1000,
+    "type": "allow",
+    "projects": {
+      "list": {
+        "PMBETZM": {
+          "api": {
+            "crm": {
+              "operator": {
+                "gaming": {
+                  "sport_bets": true
+                },
+                "client": true
+              }
+            }
+          }
+        },
+        "SHOOT": {
+          "api": {
+            "crm": {
+              "operator": {
+                "operator": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "platform": {
+      "api": {
+        "crm": {
+          "platform": {
+            "gaming": true,
+            "payments": true
+          }
+        }
+      }
+    }
+  },
+  "gr2_d": {
+    "priority": 1001,
+    "type": "deny",
+    "projects": {
+      "PMBETZM": {
+        "api": {
+          "crm": {
+            "operator": {
+              "client": {
+                "limits": true
+              }
+            }
+          }
+        }
+      },
+      "list": {}
+    },
+    "platform": {
+      "api": {
+        "crm": {
+          "platform": {
+            "gaming": {
+              "regions": true,
+              "tournaments": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

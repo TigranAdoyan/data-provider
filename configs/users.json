@@ -3,55 +3,12 @@
     {
       "user": "admin",
       "pass": "password",
-      "access": {
-        "allow": {
-          "projects": true,
-          "path": {
-            "api": true
-          }
-        },
-        "deny": {
-          "projects": [],
-          "path": {}
-        }
-      }
+      "groups": ["admin"]
     },
     {
       "user": "user",
       "pass": "password",
-      "access": {
-        "allow": {
-          "projects": true,
-          "path": {
-            "api": {
-              "crm": {
-                "operator": {
-                  "gaming": {
-                    "sport_bets": true
-                  },
-                  "operator": true
-                }
-              }
-            }
-          }
-        },
-        "deny": {
-          "projects": ["PMBETKE"],
-          "path": {
-            "api": {
-              "crm": {
-                "operator": {
-                  "operator": {
-                    "participant2operator": true,
-                    "region2operator": true,
-                    "tournament2operator": true
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      "groups": ["gr1_a", "gr1_d", "gr2_a", "gr2_d"]
     }
   ]
 }

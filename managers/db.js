@@ -131,9 +131,9 @@ module.exports = class DB {
    * @param {number} page 
    * @returns {Promise<import('../types').PaginationResult<User>>}
    */
-  getUsers(page = 1, limit = null) {
+  async getUsers(page = 1, limit = null) {
     const pQuery = new Paginator(this.knex(this.tableUnquoted('users')).select('*'));
-    return pQuery.page(page).limit(limit).exec();
+    return pQuery.page(page).limit(limit);
   }
 
   /**
@@ -194,8 +194,8 @@ module.exports = class DB {
    * @param {number} page 
    * @returns {Promise<import('../types').PaginationResult<Game_casino>>}
    */
-  getGamesCasino(page = 1, limit = null) {
+  async getGamesCasino(page = 1, limit = null) {
     const pQuery = new Paginator(this.knex(this.tableUnquoted('games_casino')).select('*'));
-    return pQuery.page(page).limit(limit).exec();
+    return pQuery.page(page).limit(limit);
   }
 };

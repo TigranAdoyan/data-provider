@@ -1,11 +1,12 @@
 const { Router } = require('express');
-const { project } = require('../../../middlewares/auth');
+const { project, access } = require('../../../middlewares/auth');
 
 const router = Router();
 
 /** @param {Router} parentRouter */
 module.exports = (parentRouter) => {
   router.use(project);
+  router.use(access);
 
   /**
    * Routes
