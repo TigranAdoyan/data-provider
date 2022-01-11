@@ -1,5 +1,5 @@
 TAG = registry.betunit.com/data-ops/crm-data-provider
-VERSION = v0.0.2
+VERSION = v0.0.3
 
 docker-run: docker-build
 	docker run -it $(TAG):$(VERSION)

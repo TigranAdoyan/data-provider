@@ -21,6 +21,7 @@ module.exports = class ResponseManager {
   constructor(res, error, message) {
     /** @private */
     this._res = res;
+    this.ended = false;
     this.responseObject = {
       error: error,
       message: message
@@ -44,6 +45,7 @@ module.exports = class ResponseManager {
   }
 
   end() {
+    this.ended = true;
     this._res.json(this.responseObject);
     return this._res;
   }

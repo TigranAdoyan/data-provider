@@ -106,4 +106,13 @@ module.exports = class OperatorController {
       next(e);
     }
   }
+
+  /** @type {import('express').RequestHandler} */
+  static list = async (req, res, next) => {
+    try {
+      res.success.data(_projects.getNames()).end();
+    } catch (e) {
+      next(e);
+    }
+  }
 };

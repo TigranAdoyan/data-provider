@@ -6,6 +6,7 @@ global._configs = require('./helpers/configs');
 global._projects = require('./helpers/projects')();
 
 const knex = require('knex')(_configs.db.mysql);
+const logger = require('./middlewares/logger');
 const response = require('./middlewares/response');
 const errorHandler = require('./middlewares/error-handler');
 const router = require('./routes/router');
@@ -20,6 +21,7 @@ _projects.init(knex, async (result, err) => {
     console.log('Listening on PORT =>', process.env.PORT);
   });
 
+  app.use(logger);
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
   app.use(response);
@@ -28,8 +30,5 @@ _projects.init(knex, async (result, err) => {
 
   if (process.env.NODE_ENV != 'production') {
     await routeFinder(app, './configs');
-
-    const TR = require('./helpers/token-routes');
-    console.log(await TR.byCredentials("user", "password"));
   }
 });
