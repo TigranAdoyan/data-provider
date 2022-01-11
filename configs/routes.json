@@ -25,6 +25,7 @@
     "api/crm/platform/gaming/selections",
     "api/crm/platform/gaming/tournaments",
     "api/crm/platform/operator/info",
+    "api/crm/platform/operator/list",
     "api/crm/platform/payments/currencies",
     "api/crm/platform/payments/exchange",
     "api/auth"
@@ -70,7 +71,8 @@
             "tournaments": true
           },
           "operator": {
-            "info": true
+            "info": true,
+            "list": true
           },
           "payments": {
             "currencies": true,
