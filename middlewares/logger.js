@@ -16,8 +16,8 @@ module.exports = morgan((tokens, req, res) => {
     CP.Bright(CP.FgMagenta(tokens.method(req, res))),
     CP.FgMagenta(tokens.url(req, res)),
     CP.Status(tokens.status(req, res)),
-    CP.FgMagenta(tokens['response-time'](req, res) + ' ms'),
-    CP.FgMagenta(tokens.res(req, res, 'content-length'))
+    CP.FgMagenta(tokens['response-time'](req, res) + 'ms'),
+    CP.FgMagenta(tokens.res(req, res, 'content-length') + 'b')
   ];
 
   log.push(EOL + CP.FgGreen('======== REQUEST DATA ========'));
@@ -54,6 +54,6 @@ module.exports = morgan((tokens, req, res) => {
     );
   }
 
-  log.push(EOL, EOL);
+  log.push(EOL, EOL, EOL);
   return log.join(' ');
 });
