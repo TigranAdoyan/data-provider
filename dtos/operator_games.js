@@ -5,7 +5,7 @@
 module.exports = (game_casino, operatorInfo) => {
   return {
     id:               game_casino.id,
-    operator_id:      operatorInfo.id,
+    operator_id:      operatorInfo.project,
     name:             game_casino.name,
     title:            game_casino.name,
     order:            game_casino.priority, 
