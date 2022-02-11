@@ -1,13 +1,18 @@
-const AppError = require('../managers/app-error');
+const AppError = require('../modules/app-error');
 const DB = require('../managers/db');
-
-const { sport_bets } = require('../dtos');
+const {
+  sportsbook_regions,
+  sportsbook_tournaments,
+  sportsbook_markets,
+  sportsbook_participants,
+  sportsbook_selections
+} = require('../dtos');
 
 module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static bets = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -18,7 +23,7 @@ module.exports = class GamingController {
     try {
       // const s_bets = await DB.project(req.project).getSportBetsByRange(new Date(req.body.from), new Date(req.body.to));
       // res.stream(s_bets, s_bet => sport_bets(s_bet, s_bet));
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -27,7 +32,7 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static selection2market = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -36,7 +41,11 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static markets = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      const markets = await DB.sportsBookMarkets(req.query.page, req.query.limit);
+      res.success.data({
+        ...markets,
+        data: markets.data.map(sportsbook_markets)
+      }).end();
     } catch (e) {
       next(e);
     }
@@ -45,7 +54,7 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static matches = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -54,7 +63,11 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static participants = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      const participants = await DB.sportsBookParticipants(req.query.page, req.query.limit);
+      res.success.data({
+        ...participants,
+        data: participants.data.map(sportsbook_participants)
+      }).end();
     } catch (e) {
       next(e);
     }
@@ -63,7 +76,8 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static regions = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      const regions = await DB.sportsBookRegions();
+      res.success.data(regions.map(sportsbook_regions)).end();
     } catch (e) {
       next(e);
     }
@@ -72,7 +86,11 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static selections = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      const selections = await DB.sportsBookSelections(req.query.page, req.query.limit);
+      res.success.data({
+        ...selections,
+        data: selections.data.map(sportsbook_selections)
+      }).end();
     } catch (e) {
       next(e);
     }
@@ -81,7 +99,11 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static tournaments = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      const tournaments = await DB.sportsBookTournaments(req.query.page, req.query.limit);
+      res.success.data({
+        ...tournaments,
+        data: tournaments.data.map(sportsbook_tournaments)
+      }).end();
     } catch (e) {
       next(e);
     }

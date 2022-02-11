@@ -192,6 +192,49 @@ interface Game_casino {
   frame_size: number
 }
 
+interface Fm_pre_country {
+  id: number,
+  title: string
+}
+
+interface Fm_pre_country_prefixed {
+  fm_pre_country_id: number,
+  fm_pre_country_title: string
+}
+
+interface Fm_pre_competition_prefixed {
+  fm_pre_competition_id: number,
+  fm_pre_competition_competition_name: string,
+  fm_pre_competition_sport_id: number,
+  fm_pre_competition_country_id: number
+}
+
+interface Fm_pre_sport_prefixed {
+  fm_pre_sport_id: number,
+  fm_pre_sport_sport_name: string,
+  fm_pre_sport_priority: number
+}
+
+interface Fm_pre_market_type_prefixed {
+  fm_pre_market_type_id: number,
+  fm_pre_market_type_market_type_name: string,
+  fm_pre_market_type_market_type_code: string,
+  fm_pre_market_type_sport_id: number,
+  fm_pre_market_type_collection_id: number
+}
+
+interface Fm_pre_team_prefixed {
+  fm_pre_team_id: number,
+  fm_pre_team_team_name: string,
+  fm_pre_team_competition_id: number
+}
+
+interface Fm_pre_price_type_prefixed {
+  fm_pre_price_type_id: number,
+  fm_pre_price_type_market_type_id: number,
+  fm_pre_price_type_price_type_name: string
+}
+
 export {
   User,
   Operator,
@@ -199,5 +242,12 @@ export {
   S_bet_prefixed,
   Log_balance_prefixed,
   Xrate,
-  Game_casino
+  Game_casino,
+  Fm_pre_country,
+  Fm_pre_country_prefixed,
+  Fm_pre_competition_prefixed,
+  Fm_pre_sport_prefixed,
+  Fm_pre_market_type_prefixed,
+  Fm_pre_team_prefixed,
+  Fm_pre_price_type_prefixed
 }
