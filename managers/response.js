@@ -22,6 +22,7 @@ module.exports = class ResponseManager {
     /** @private */
     this._res = res;
     this.ended = false;
+    this.statusCode = 0;
     this.responseObject = {
       error: error,
       message: message
@@ -44,8 +45,15 @@ module.exports = class ResponseManager {
     return this;
   }
 
+  /** @param {number} code */
+  status(code) {
+    this.statusCode = code;
+    return this;
+  }
+
   end() {
     this.ended = true;
+    if (this.statusCode) this._res.status(this.statusCode);
     this._res.json(this.responseObject);
     return this._res;
   }

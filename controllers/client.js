@@ -1,4 +1,4 @@
-const AppError = require('../managers/app-error');
+const AppError = require('../modules/app-error');
 const DB = require('../managers/db');
 
 const { clients } = require('../dtos');
@@ -23,7 +23,7 @@ module.exports = class ClientController {
   static activity_feed = async (req, res, next) => {
     try {
       
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -33,7 +33,7 @@ module.exports = class ClientController {
   static balance_log = async (req, res, next) => {
     try {
       
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -43,7 +43,7 @@ module.exports = class ClientController {
   static labels = async (req, res, next) => {
     try {
       
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -53,7 +53,7 @@ module.exports = class ClientController {
   static limits = async (req, res, next) => {
     try {
       
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }

@@ -1,4 +1,4 @@
-const AppError = require('../managers/app-error');
+const AppError = require('../modules/app-error');
 const DB = require('../managers/db');
 
 const { operator_info, operator_providers, operator_games } = require('../dtos');
@@ -7,7 +7,7 @@ module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
   static abstract2tag = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -16,7 +16,7 @@ module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
   static bonuses = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -25,7 +25,7 @@ module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
   static category = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -74,7 +74,7 @@ module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
   static participant2operator = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -83,7 +83,7 @@ module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
   static region2operator = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -92,7 +92,7 @@ module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
   static tournament2operator = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }
@@ -101,7 +101,7 @@ module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
   static infoP = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').end();
+      res.error.msg('Not implemented').status(501).end();
     } catch (e) {
       next(e);
     }

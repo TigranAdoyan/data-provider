@@ -1,4 +1,4 @@
-const AppError = require('../managers/app-error');
+const AppError = require('../modules/app-error');
 const TokenManager = require('../managers/token');
 
 module.exports = class ClientController {

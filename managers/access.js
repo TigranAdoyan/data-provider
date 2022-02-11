@@ -1,5 +1,5 @@
 const fs = require('fs');
-const AppError = require('./app-error');
+const AppError = require('../modules/app-error');
 const TokenManager = require('./token');
 const groups = require('../configs/groups.json');
 

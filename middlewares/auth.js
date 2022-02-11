@@ -1,5 +1,5 @@
 const { header } = require('express-validator');
-const AppError = require('../managers/app-error');
+const AppError = require('../modules/app-error');
 const AccessManager = require('../managers/access');
 const validator = require('../middlewares/validator');
 

@@ -1,7 +1,7 @@
 const ResponseManager = require('../managers/response');
 const { Transform } = require('stream');
 const { EOL } = require('os');
-const AppError = require('../managers/app-error');
+const AppError = require('../modules/app-error');
 
 /** @type {import("express").RequestHandler} */
 module.exports = (req, res, next) => {

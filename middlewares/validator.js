@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const AppError = require('../managers/app-error');
+const AppError = require('../modules/app-error');
 
 /**
  * @type {import('express').RequestHandler}
