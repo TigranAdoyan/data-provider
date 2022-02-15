@@ -30,16 +30,6 @@ module.exports = class ClientController {
   }
 
   /** @type {import('express').RequestHandler} */
-  static balance_log = async (req, res, next) => {
-    try {
-      
-      res.error.msg('Not implemented').status(501).end();
-    } catch (e) {
-      next(e);
-    }
-  }
-
-  /** @type {import('express').RequestHandler} */
   static labels = async (req, res, next) => {
     try {
       

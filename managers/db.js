@@ -6,15 +6,22 @@
 /**
  * @typedef {import('../types').db.User} User
  * @typedef {import('../types').db.Transaction} Transaction
+ * @typedef {import('../types').db.Log_balance} Log_balance
  * @typedef {import('../types').db.Xrate} Xrate
  * @typedef {import('../types').db.Game_casino} Game_casino
+ * 
  * @typedef {import('../types').db.Fm_pre_country} Fm_pre_country
  * @typedef {import('../types').db.Fm_pre_competition_prefixed} Fm_pre_competition_prefixed
  * @typedef {import('../types').db.Fm_pre_market_type_prefixed} Fm_pre_market_type_prefixed
+ * @typedef {import('../types').db.Fm_pre_event_state_prefixed} Fm_pre_event_state_prefixed
  * @typedef {import('../types').db.Fm_pre_price_type_prefixed} Fm_pre_price_type_prefixed
  * @typedef {import('../types').db.Fm_pre_country_prefixed} Fm_pre_country_prefixed
+ * @typedef {import('../types').db.Fm_pre_event_prefixed} Fm_pre_event_prefixed
  * @typedef {import('../types').db.Fm_pre_sport_prefixed} Fm_pre_sport_prefixed
  * @typedef {import('../types').db.Fm_pre_team_prefixed} Fm_pre_team_prefixed
+ * 
+ * @typedef {import('../types').db.Fk_operator_region_prefixed} Fk_operator_region_prefixed
+ * @typedef {import('../types').db.Operator_prefixed} Operator_prefixed
  */
 
 const DBBase = require('../modules/db-base');
@@ -115,6 +122,52 @@ module.exports = class DB extends DBBase {
     return pQuery.page(page).limit(limit);
   }
 
+  /** @returns {Promise<PaginationResult<Fm_pre_event_prefixed & Fm_pre_event_state_prefixed & Fm_pre_sport_prefixed & Fm_pre_country_prefixed & Fm_pre_competition_prefixed>>} */
+  static async sportsBookMatches(page, limit) {
+    const eventTypeFields = await this.fields('obs', 'fm_pre_event');
+    const eventStateTypeFields = await this.fields('obs', 'fm_pre_event_state');
+    const sportTypeFields = await this.fields('obs', 'fm_pre_sport');
+    const competitionTypeFields = await this.fields('obs', 'fm_pre_competition');
+    const countryTypeFields = await this.fields('obs', 'fm_pre_country');
+
+    const pQuery = new Paginator(
+      this.from('obs')
+        .select(
+          ...eventTypeFields.getPrefixed(),
+          ...eventStateTypeFields.getPrefixed(),
+          ...sportTypeFields.getPrefixed(),
+          ...countryTypeFields.getPrefixed(),
+          ...competitionTypeFields.getPrefixed()
+        )
+        .from('fm_pre_event')
+        .leftJoin('fm_pre_event_state', 'fm_pre_event.event_state_id', 'fm_pre_event_state.id')
+        .leftJoin('fm_pre_sport', 'fm_pre_event.sport_id', 'fm_pre_sport.id')
+        .leftJoin('fm_pre_competition', 'fm_pre_event.competition_id', 'fm_pre_competition.id')
+        .leftJoin('fm_pre_country', 'fm_pre_competition.country_id', 'fm_pre_country.id')
+    );
+    
+    return pQuery.page(page).limit(limit);
+  }
+
+  /** @returns {Promise<(Fk_operator_region_prefixed & Operator_prefixed)[]>} */
+  static async region2operator(project) {
+    const operatorRegionFields = await this.fields('topology', 'fk_operator_region');
+    const operatorFields = await this.fields('topology', 'operators');
+
+    const result = await this.from('topology').raw(`
+      SELECT
+        ${operatorRegionFields.getPrefixed({quote: true}).join(', ')},
+        ${operatorFields.getPrefixed({quote: true}).join(', ')}
+      FROM
+        \`fk_operator_region\`
+      INNER JOIN
+        \`operators\` ON
+          \`operators\`.id = \`fk_operator_region\`.operator_id
+          AND \`operators\`.title = '${project}'
+    `);
+    return this.result(result);
+  }
+
 
 
 
@@ -173,6 +226,23 @@ module.exports = class DB extends DBBase {
    */
   async getTransactionsByRange(from, to) {
     return this.knex.raw(`SELECT * FROM ${this.table('transactions')} WHERE created_at BETWEEN ? AND ?`, [from, to]).stream();
+  }
+
+
+
+  /**
+   * @param {Date} from 
+   * @param {Date} to 
+   * @param {number} page 
+   * @returns {Promise<PaginationResult<Log_balance>>}
+   */
+  async getBalanceLog(from, to, page, limit = null) {
+    const pQuery = new Paginator(
+      this.knex(this.tableUnquoted('log_balance'))
+        .select('*')
+        .whereBetween('created', [from, to])
+    );
+    return pQuery.page(page).limit(limit);
   }
 
 

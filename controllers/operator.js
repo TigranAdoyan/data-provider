@@ -1,7 +1,7 @@
 const AppError = require('../modules/app-error');
 const DB = require('../managers/db');
 
-const { operator_info, operator_providers, operator_games } = require('../dtos');
+const { operator_info, operator_providers, operator_games, region2operator } = require('../dtos');
 
 module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
@@ -83,7 +83,8 @@ module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
   static region2operator = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').status(501).end();
+      const data = await DB.region2operator(req.project);
+      return res.success.data(region2operator(data)).end();
     } catch (e) {
       next(e);
     }

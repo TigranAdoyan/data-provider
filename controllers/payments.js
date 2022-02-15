@@ -1,7 +1,7 @@
 const AppError = require('../modules/app-error');
 const DB = require('../managers/db');
 
-const { currencies, payment_transactions, exchange_hub } = require('../dtos');
+const { currencies, payment_transactions, exchange_hub, balance_log } = require('../dtos');
 
 module.exports = class PaymentsController {
   /** @type {import('express').RequestHandler<, , {from:string,to:string}>} */
@@ -35,6 +35,25 @@ module.exports = class PaymentsController {
         }
         return exchange_hub(curr, {});
       })).end();
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  /** @type {import('express').RequestHandler} */
+  static balance_log = async (req, res, next) => {
+    try {
+      const operatorInfo = _projects.projectConf(req.project);
+      const logs = await DB.project(req.project).getBalanceLog(
+        new Date(req.query.from),
+        new Date(req.query.to),
+        req.query.page,
+        req.query.limit
+      );
+      return res.success.data({
+        ...logs,
+        data: logs.data.map(log => balance_log(log, operatorInfo))
+      }).end();
     } catch (e) {
       next(e);
     }

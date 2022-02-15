@@ -160,6 +160,21 @@ interface Log_balance_prefixed {
   log_balance_updated: Date | null,
 }
 
+interface Log_balance {
+  id: number,
+  user_id: number,
+  balance_old_value: string,
+  balance_new_value: string,
+  balance_diff: string,
+  created: Date
+  units_old_value: string,
+  units_new_value: string,
+  units_diff: string,
+  op: string,
+  fixed: number,
+  updated: Date | null,
+}
+
 interface Xrate {
   id: number,
   currency: string,
@@ -235,12 +250,55 @@ interface Fm_pre_price_type_prefixed {
   fm_pre_price_type_price_type_name: string
 }
 
+interface Fm_pre_event_state_prefixed {
+  fm_pre_event_state_id: number,
+  fm_pre_event_state_event_state_name: string
+}
+
+interface Fm_pre_event_prefixed {
+  fm_pre_event_id: number,
+  fm_pre_event_event_state_id: number,
+  fm_pre_event_sport_id: number,
+  fm_pre_event_event_start_time: Date,
+  fm_pre_event_created_date: Date,
+  fm_pre_event_competition_id: number,
+  fm_pre_event_t1_id: number,
+  fm_pre_event_t2_id: number,
+  fm_pre_event_event_name: string,
+  fm_pre_event_last_user: string | null,
+  fm_pre_event_bm_time_lock: number | null
+  fm_pre_event_hot: number,
+  fm_pre_event_pre_disable: number,
+  fm_pre_event_st_manual_update: number,
+  fm_pre_event_top: number
+}
+
+interface Fk_operator_region_prefixed {
+  fk_operator_region_id: number,
+  fk_operator_region_operator_id: number,
+  fk_operator_region_region_id: number
+}
+
+interface Operator_prefixed {
+  operators_id: number,
+  operators_title: string,
+  operators_integration: string,
+  operators_ranking: number,
+  operators_status: string
+}
+
+interface Region_prefixed {
+  regions_id: number,
+  regions_title: string
+}
+
 export {
   User,
   Operator,
   Transaction,
   S_bet_prefixed,
   Log_balance_prefixed,
+  Log_balance,
   Xrate,
   Game_casino,
   Fm_pre_country,
@@ -249,5 +307,10 @@ export {
   Fm_pre_sport_prefixed,
   Fm_pre_market_type_prefixed,
   Fm_pre_team_prefixed,
-  Fm_pre_price_type_prefixed
+  Fm_pre_price_type_prefixed,
+  Fm_pre_event_state_prefixed,
+  Fm_pre_event_prefixed,
+  Fk_operator_region_prefixed,
+  Operator_prefixed,
+  Region_prefixed
 }

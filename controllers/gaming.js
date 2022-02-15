@@ -5,7 +5,8 @@ const {
   sportsbook_tournaments,
   sportsbook_markets,
   sportsbook_participants,
-  sportsbook_selections
+  sportsbook_selections,
+  sportsbook_matches
 } = require('../dtos');
 
 module.exports = class GamingController {
@@ -54,7 +55,11 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static matches = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').status(501).end();
+      const matches = await DB.sportsBookMatches(req.query.page, req.query.limit);
+      res.success.data({
+        ...matches,
+        data: matches.data.map(sportsbook_matches)
+      }).end();
     } catch (e) {
       next(e);
     }

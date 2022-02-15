@@ -1,7 +1,6 @@
 {
   "routesStr": [
     "api/crm/operator/client/activity_feed",
-    "api/crm/operator/client/balance_log",
     "api/crm/operator/client/labels",
     "api/crm/operator/client/limits",
     "api/crm/operator/client",
@@ -17,6 +16,7 @@
     "api/crm/operator/operator/region2operator",
     "api/crm/operator/operator/tournament2operator",
     "api/crm/operator/payments/transactions",
+    "api/crm/operator/payments/balance_log",
     "api/crm/platform/gaming/selection2market",
     "api/crm/platform/gaming/markets",
     "api/crm/platform/gaming/matches",
@@ -36,7 +36,6 @@
         "operator": {
           "client": {
             "activity_feed": true,
-            "balance_log": true,
             "labels": true,
             "limits": true,
             "": true
@@ -57,7 +56,8 @@
             "tournament2operator": true
           },
           "payments": {
-            "transactions": true
+            "transactions": true,
+            "balance_log": true
           }
         },
         "platform": {
