@@ -10,7 +10,11 @@ module.exports = (parentRouter) => {
   router.get('/abstract2tag', OperatorController.abstract2tag);
   router.get('/bonuses', OperatorController.bonuses);
   router.get('/category', OperatorController.category);
-  router.get('/games', OperatorController.games);
+  router.get('/games',
+    paginator,
+    validationResult,
+    OperatorController.games
+  );
   router.get('/info', OperatorController.infoO);
   router.get('/providers',
     paginator,

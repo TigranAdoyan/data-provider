@@ -13,8 +13,12 @@ module.exports = (parentRouter) => {
     validationResult,
     GamingController.markets
   );
-  router.get('/matches', GamingController.matches);
-  router.get('/participants', 
+  router.get('/matches',
+    paginator,
+    validationResult,
+    GamingController.matches
+  );
+  router.get('/participants',
     paginator,
     validationResult,
     GamingController.participants
