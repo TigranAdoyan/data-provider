@@ -441,6 +441,13 @@ module.exports = function () {
                 return this.tables_V0[name];
             }
         },
+        splitTable (projectTable) {
+            const splitted = projectTable.replace(/`/gi, '').split('.');
+            return {
+                db: splitted[0],
+                table: splitted[1]
+            }
+        },
         getAllTables (name) {
             var _this = this;
             var tables = [];

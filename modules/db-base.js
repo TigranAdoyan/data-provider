@@ -89,7 +89,7 @@ module.exports = class DBBase {
 
   /** @protected */
   static tableUnquoted(table, project) {
-    return this.table(table).replace(/`/g, '');
+    return this.table(table, project).replace(/`/g, '');
   }
 
   /** @protected */
