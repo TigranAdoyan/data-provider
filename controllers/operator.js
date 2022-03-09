@@ -60,7 +60,7 @@ module.exports = class OperatorController {
   static providers = async (req, res, next) => {
     try {
       const operatorInfo = _projects.projectConf(req.project);
-      const games_casino = await DB.project(req.project).getGamesCasino(req.query.page, req.query.limit);
+      const games_casino = await DB.project(req.project).getCasinoProviders(req.query.page, req.query.limit);
 
       res.success.data({
         ...games_casino,

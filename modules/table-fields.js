@@ -95,10 +95,10 @@ module.exports = class TableFields {
 
   /** 
    * @param {{
-   *  prefix: string,
-   *  table: string,
-   *  db: string,
-   *  quote: string
+   *  prefix?: string,
+   *  table?: string,
+   *  db?: string,
+   *  quote?: string
    * }}
    * @param {string[]} fieldsArr
    */
@@ -112,6 +112,69 @@ module.exports = class TableFields {
     for (const fieldItem of this.fieldList.values()) {
       if (!fieldsArr.includes(fieldItem.Field)) {
         fieldArr.push(`${quote}${db}${quote}.${quote}${table}${quote}.${fieldItem.Field} AS ${prefix}_${fieldItem.Field}`);
+      }
+    }
+    return fieldArr;
+  }
+
+  /** 
+   * @param {{
+   *  table: string,
+   *  db: string,
+   *  quote: string
+   * }}
+   */
+  getRaw({table, db, quote} = {}) {
+    table   = (table   === undefined)  ? this.table  : table;
+    db      = (db      === undefined)  ? this.db     : db;
+    quote   = (quote   === undefined)  ? ''          : '`';
+
+    const fieldArr = [];
+    for (const fieldItem of this.fieldList.values()) {
+      fieldArr.push(`${quote}${db}${quote}.${quote}${table}${quote}.${fieldItem.Field} AS ${fieldItem.Field}`);
+    }
+    return fieldArr;
+  }
+
+  /** 
+   * @param {{
+   *  table: string,
+   *  db: string,
+   *  quote: string
+   * }}
+   * @param {string[]} fieldsArr
+   */
+  getRawByArr({table, db, quote} = {}, fieldsArr = []) {
+    table   = (table   === undefined)  ? this.table  : table;
+    db      = (db      === undefined)  ? this.db     : db;
+    quote   = (quote   === undefined)  ? ''          : '`';
+
+    const fieldArr = [];
+    for (const field of fieldsArr) {
+      if (this.fieldList.has(field)) {
+        fieldArr.push(`${quote}${db}${quote}.${quote}${table}${quote}.${field} AS ${field}`);
+      }
+    }
+    return fieldArr;
+  }
+
+  /** 
+   * @param {{
+   *  table?: string,
+   *  db?: string,
+   *  quote?: string
+   * }}
+   * @param {string[]} fieldsArr
+   */
+  getRawExceptArr({table, db, quote} = {}, fieldsArr = []) {
+    table   = (table   === undefined)  ? this.table  : table;
+    db      = (db      === undefined)  ? this.db     : db;
+    quote   = (quote   === undefined)  ? ''          : '`';
+    
+    const fieldArr = [];
+    for (const fieldItem of this.fieldList.values()) {
+      if (!fieldsArr.includes(fieldItem.Field)) {
+        fieldArr.push(`${quote}${db}${quote}.${quote}${table}${quote}.${fieldItem.Field} AS ${fieldItem.Field}`);
       }
     }
     return fieldArr;

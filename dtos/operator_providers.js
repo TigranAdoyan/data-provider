@@ -6,9 +6,9 @@ module.exports = (game_casino, operatorInfo) => {
   return {
     id:           game_casino.id,
     operator_id:  operatorInfo.project,
-    title:        game_casino.name,
-    order:        '',                          // ?
+    title:        game_casino.provider,
+    order:        '',                                         // ?
     integrator:   game_casino.aggregator,
-    status:       ''                           // ?
+    status:       Number(!Boolean(game_casino.deleted))       // ?
   };
 };

@@ -14,6 +14,7 @@ module.exports = class Paginator {
 
   constructor(knexQueryBuilder, page = Paginator.defaultPage, limit = Paginator.defaultLimit) {
     this._knexQueryBuilder = knexQueryBuilder;
+    this._countQuery = null;
     this.page(page);
     this.limit(limit);
   }
@@ -30,6 +31,12 @@ module.exports = class Paginator {
     return this;
   }
 
+  /** @param {Knex.Raw} query */
+  countQuery(query) {
+    this._countQuery = query;
+    return this;
+  }
+
   /**
    * @template T
    * @returns {Promise<import("../types").PaginationResult<T>>} 
@@ -39,7 +46,9 @@ module.exports = class Paginator {
       .offset(this._limit * (this._page - 1))
       .limit(this._limit);
 
-    const total = await this._knexQueryBuilder.clearSelect().offset(0).count('*');
+    const total = this._countQuery 
+      ? (await this._countQuery)[0]
+      : await this._knexQueryBuilder.clearSelect().offset(0).count('*');
 
     cb({
       current_page: Number(this._page),

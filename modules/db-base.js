@@ -111,6 +111,6 @@ module.exports = class DBBase {
     const splitted = table.split('.');
     const db = splitted[0].substr(1, splitted[0].length - 2);
     const tbl = splitted[1].substr(1, splitted[1].length - 2);
-    return DBBase.fields(this.knex, db, tbl);
+    return DBBase.fields(db, tbl);
   }
 };

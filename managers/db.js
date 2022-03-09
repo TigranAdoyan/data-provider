@@ -86,13 +86,13 @@ module.exports = class DB extends DBBase {
 
   /** @returns {Promise<PaginationResult<Fm_pre_team_prefixed & Fm_pre_sport_prefixed>>} */
   static async sportsBookParticipants(page, limit) {
-    const marketTypeFields = await this.fields('obs', 'fm_pre_team');
+    const teamFields = await this.fields('obs', 'fm_pre_team');
     const sportFields = await this.fields('obs', 'fm_pre_sport');
 
     const pQuery = new Paginator(
       this.from('obs')
         .select(
-          ...marketTypeFields.getPrefixed(),
+          ...teamFields.getPrefixed(),
           ...sportFields.getPrefixed()
         )
         .from('fm_pre_team')
@@ -103,15 +103,17 @@ module.exports = class DB extends DBBase {
     return pQuery.page(page).limit(limit);
   }
 
-  /** @returns {Promise<PaginationResult<Fm_pre_price_type_prefixed & Fm_pre_market_type_prefixed>>} */
+  /** @returns {Promise<PaginationResult<Fm_pre_price_type_prefixed & Fm_pre_sport_prefixed & Fm_pre_market_type_prefixed>>} */
   static async sportsBookSelections(page, limit) {
     const priceTypeFields = await this.fields('obs', 'fm_pre_price_type');
+    const marketTypeFields = await this.fields('obs', 'fm_pre_market_type');
     const sportFields = await this.fields('obs', 'fm_pre_sport');
 
     const pQuery = new Paginator(
       this.from('obs')
         .select(
           ...priceTypeFields.getPrefixed(),
+          ...marketTypeFields.getPrefixed(),
           ...sportFields.getPrefixed()
         )
         .from('fm_pre_price_type')
@@ -124,20 +126,20 @@ module.exports = class DB extends DBBase {
 
   /** @returns {Promise<PaginationResult<Fm_pre_event_prefixed & Fm_pre_event_state_prefixed & Fm_pre_sport_prefixed & Fm_pre_country_prefixed & Fm_pre_competition_prefixed>>} */
   static async sportsBookMatches(page, limit) {
-    const eventTypeFields = await this.fields('obs', 'fm_pre_event');
-    const eventStateTypeFields = await this.fields('obs', 'fm_pre_event_state');
-    const sportTypeFields = await this.fields('obs', 'fm_pre_sport');
-    const competitionTypeFields = await this.fields('obs', 'fm_pre_competition');
-    const countryTypeFields = await this.fields('obs', 'fm_pre_country');
+    const eventFields = await this.fields('obs', 'fm_pre_event');
+    const eventStateFields = await this.fields('obs', 'fm_pre_event_state');
+    const sportFields = await this.fields('obs', 'fm_pre_sport');
+    const competitionFields = await this.fields('obs', 'fm_pre_competition');
+    const countryFields = await this.fields('obs', 'fm_pre_country');
 
     const pQuery = new Paginator(
       this.from('obs')
         .select(
-          ...eventTypeFields.getPrefixed(),
-          ...eventStateTypeFields.getPrefixed(),
-          ...sportTypeFields.getPrefixed(),
-          ...countryTypeFields.getPrefixed(),
-          ...competitionTypeFields.getPrefixed()
+          ...eventFields.getPrefixed(),
+          ...eventStateFields.getPrefixed(),
+          ...sportFields.getPrefixed(),
+          ...competitionFields.getPrefixed(),
+          ...countryFields.getPrefixed()
         )
         .from('fm_pre_event')
         .leftJoin('fm_pre_event_state', 'fm_pre_event.event_state_id', 'fm_pre_event_state.id')
@@ -254,6 +256,20 @@ module.exports = class DB extends DBBase {
    */
   async getGamesCasino(page = 1, limit = null) {
     const pQuery = new Paginator(this.knex(this.tableUnquoted('games_casino')).select('*'));
+    return pQuery.page(page).limit(limit);
+  }
+
+  /**
+   * @param {number} page 
+   * @returns {Promise<PaginationResult<Game_casino>>}
+   */
+  async getCasinoProviders(page = 1, limit = null) {
+    const pQuery = new Paginator(
+      this.knex(this.tableUnquoted('games_casino')).select('*').groupBy('provider')
+    ).countQuery(this.knex.raw(`
+      SELECT count(*) FROM (SELECT DISTINCT provider FROM ${this.table('games_casino')} GROUP BY provider) AS sq
+    `));
+
     return pQuery.page(page).limit(limit);
   }
 };
