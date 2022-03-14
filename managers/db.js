@@ -51,7 +51,7 @@ module.exports = class DB extends DBBase {
     const countryFields = await this.fields('obs', 'fm_pre_country');
     const sportFields = await this.fields('obs', 'fm_pre_sport');
 
-    const pQuery = new Paginator(
+    return new Paginator(
       this.from('obs')
         .select(
           ...competitionFields.getPrefixed(),
@@ -61,9 +61,9 @@ module.exports = class DB extends DBBase {
         .from('fm_pre_competition')
         .leftJoin('fm_pre_country', 'fm_pre_competition.country_id', 'fm_pre_country.id')
         .leftJoin('fm_pre_sport', 'fm_pre_competition.sport_id', 'fm_pre_sport.id')
-    );
-    
-    return pQuery.page(page).limit(limit);
+    )
+    .page(page)
+    .limit(limit);
   }
 
   /** @returns {Promise<PaginationResult<Fm_pre_market_type_prefixed & Fm_pre_sport_prefixed>>} */
@@ -71,7 +71,7 @@ module.exports = class DB extends DBBase {
     const marketTypeFields = await this.fields('obs', 'fm_pre_market_type');
     const sportFields = await this.fields('obs', 'fm_pre_sport');
 
-    const pQuery = new Paginator(
+    return new Paginator(
       this.from('obs')
         .select(
           ...marketTypeFields.getPrefixed(),
@@ -79,9 +79,9 @@ module.exports = class DB extends DBBase {
         )
         .from('fm_pre_market_type')
         .leftJoin('fm_pre_sport', 'fm_pre_market_type.sport_id', 'fm_pre_sport.id')
-    );
-    
-    return pQuery.page(page).limit(limit);
+    )
+    .page(page)
+    .limit(limit);
   }
 
   /** @returns {Promise<PaginationResult<Fm_pre_team_prefixed & Fm_pre_sport_prefixed>>} */
@@ -89,7 +89,7 @@ module.exports = class DB extends DBBase {
     const teamFields = await this.fields('obs', 'fm_pre_team');
     const sportFields = await this.fields('obs', 'fm_pre_sport');
 
-    const pQuery = new Paginator(
+    return new Paginator(
       this.from('obs')
         .select(
           ...teamFields.getPrefixed(),
@@ -98,9 +98,9 @@ module.exports = class DB extends DBBase {
         .from('fm_pre_team')
         .leftJoin('fm_pre_competition', 'fm_pre_team.competition_id', 'fm_pre_competition.id')
         .leftJoin('fm_pre_sport', 'fm_pre_competition.sport_id', 'fm_pre_sport.id')
-    );
-    
-    return pQuery.page(page).limit(limit);
+    )
+    .page(page)
+    .limit(limit);
   }
 
   /** @returns {Promise<PaginationResult<Fm_pre_price_type_prefixed & Fm_pre_sport_prefixed & Fm_pre_market_type_prefixed>>} */
@@ -109,7 +109,7 @@ module.exports = class DB extends DBBase {
     const marketTypeFields = await this.fields('obs', 'fm_pre_market_type');
     const sportFields = await this.fields('obs', 'fm_pre_sport');
 
-    const pQuery = new Paginator(
+    return new Paginator(
       this.from('obs')
         .select(
           ...priceTypeFields.getPrefixed(),
@@ -119,9 +119,9 @@ module.exports = class DB extends DBBase {
         .from('fm_pre_price_type')
         .leftJoin('fm_pre_market_type', 'fm_pre_price_type.market_type_id', 'fm_pre_market_type.id')
         .leftJoin('fm_pre_sport', 'fm_pre_market_type.sport_id', 'fm_pre_sport.id')
-    );
-    
-    return pQuery.page(page).limit(limit);
+    )
+    .page(page)
+    .limit(limit);
   }
 
   /** @returns {Promise<PaginationResult<Fm_pre_event_prefixed & Fm_pre_event_state_prefixed & Fm_pre_sport_prefixed & Fm_pre_country_prefixed & Fm_pre_competition_prefixed>>} */
@@ -132,7 +132,7 @@ module.exports = class DB extends DBBase {
     const competitionFields = await this.fields('obs', 'fm_pre_competition');
     const countryFields = await this.fields('obs', 'fm_pre_country');
 
-    const pQuery = new Paginator(
+    return new Paginator(
       this.from('obs')
         .select(
           ...eventFields.getPrefixed(),
@@ -146,9 +146,9 @@ module.exports = class DB extends DBBase {
         .leftJoin('fm_pre_sport', 'fm_pre_event.sport_id', 'fm_pre_sport.id')
         .leftJoin('fm_pre_competition', 'fm_pre_event.competition_id', 'fm_pre_competition.id')
         .leftJoin('fm_pre_country', 'fm_pre_competition.country_id', 'fm_pre_country.id')
-    );
-    
-    return pQuery.page(page).limit(limit);
+    )
+    .page(page)
+    .limit(limit);
   }
 
   /** @returns {Promise<(Fk_operator_region_prefixed & Operator_prefixed)[]>} */
@@ -196,8 +196,11 @@ module.exports = class DB extends DBBase {
    * @returns {Promise<PaginationResult<User>>}
    */
   async getUsers(page = 1, limit = null) {
-    const pQuery = new Paginator(this.knex(this.tableUnquoted('users')).select('*'));
-    return pQuery.page(page).limit(limit);
+    return new Paginator(
+      this.knex(this.tableUnquoted('users')).select('*')
+    )
+    .page(page)
+    .limit(limit);
   }
 
 
@@ -239,12 +242,13 @@ module.exports = class DB extends DBBase {
    * @returns {Promise<PaginationResult<Log_balance>>}
    */
   async getBalanceLog(from, to, page, limit = null) {
-    const pQuery = new Paginator(
+    return new Paginator(
       this.knex(this.tableUnquoted('log_balance'))
         .select('*')
         .whereBetween('created', [from, to])
-    );
-    return pQuery.page(page).limit(limit);
+    )
+    .page(page)
+    .limit(limit);
   }
 
 
@@ -255,8 +259,11 @@ module.exports = class DB extends DBBase {
    * @returns {Promise<PaginationResult<Game_casino>>}
    */
   async getGamesCasino(page = 1, limit = null) {
-    const pQuery = new Paginator(this.knex(this.tableUnquoted('games_casino')).select('*'));
-    return pQuery.page(page).limit(limit);
+    return new Paginator(this.knex(
+      this.tableUnquoted('games_casino')).select('*')
+    )
+    .page(page)
+    .limit(limit)
   }
 
   /**
@@ -264,12 +271,36 @@ module.exports = class DB extends DBBase {
    * @returns {Promise<PaginationResult<Game_casino>>}
    */
   async getCasinoProviders(page = 1, limit = null) {
-    const pQuery = new Paginator(
+    return new Paginator(
       this.knex(this.tableUnquoted('games_casino')).select('*').groupBy('provider')
-    ).countQuery(this.knex.raw(`
+    )
+    .countQuery(this.knex.raw(`
       SELECT count(*) FROM (SELECT DISTINCT provider FROM ${this.table('games_casino')} GROUP BY provider) AS sq
-    `));
+    `))
+    .page(page)
+    .limit(limit);
+  }
 
-    return pQuery.page(page).limit(limit);
+  /**
+   * @param {number} page 
+   * @returns {Promise<PaginationResult<Game_casino>>}
+   */
+  async getCasinoCategories(page = 1, limit = null) {
+    return new Paginator(
+      this.knex(this.tableUnquoted('games_casino')).select('*').where('deleted', '=', '0').groupBy('type', 'site_section')
+    )
+    .countQuery(
+      this.knex.raw(`
+        SELECT count(*)
+        FROM (
+          SELECT count(*)
+          FROM ${this.table('games_casino')}
+          WHERE deleted = '0'
+          GROUP BY type, site_section
+        ) t
+      `)
+    )
+    .page(page)
+    .limit(limit);
   }
 };

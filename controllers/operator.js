@@ -1,7 +1,13 @@
 const AppError = require('../modules/app-error');
 const DB = require('../managers/db');
 
-const { operator_info, operator_providers, operator_games, region2operator } = require('../dtos');
+const {
+  operator_info,
+  operator_providers,
+  operator_games,
+  region2operator,
+  operator_category
+} = require('../dtos');
 
 module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
@@ -25,7 +31,13 @@ module.exports = class OperatorController {
   /** @type {import('express').RequestHandler} */
   static category = async (req, res, next) => {
     try {
-      res.error.msg('Not implemented').status(501).end();
+      const operatorInfo = _projects.projectConf(req.project);
+      const categories = await DB.project(req.project).getCasinoCategories(req.query.page, req.query.limit);
+
+      res.success.data({
+        ...categories,
+        data: categories.data.map(category => operator_category(operatorInfo, category))
+      }).end();
     } catch (e) {
       next(e);
     }
