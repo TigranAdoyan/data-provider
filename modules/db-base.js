@@ -37,6 +37,7 @@ module.exports = class DBBase {
    */
   static _fields = new Map();
 
+  /** @param {string} project */
   static project(project) {
     if (!this._initializedProjectDBs.has(project)) {
       if (!_projects.getNames().includes(project)) {
