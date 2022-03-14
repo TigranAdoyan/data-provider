@@ -2,13 +2,18 @@
   "list": [
     {
       "user": "admin",
-      "pass": "password",
+      "pass": "12FAoTxr",
       "groups": ["admin"]
     },
     {
-      "user": "user",
+      "user": "test",
       "pass": "password",
       "groups": ["gr1_a", "gr1_d", "gr2_a", "gr2_d"]
+    },
+    {
+      "user": "user",
+      "pass": "xIYIe4sB",
+      "groups": ["kenya", "full_platform"]
     }
   ]
 }
