@@ -33,7 +33,17 @@ interface PaginationResult<T> {
   data: T[]
 }
 
+type Where<T> = {
+  operator: "=" | ">" | "<" | ">=" | "<=",
+  value: T
+}
+
+type WhereStructure<T> = {
+  [index: string]: Where<T>
+}
+
 export {
   db,
-  PaginationResult
+  PaginationResult,
+  WhereStructure
 }

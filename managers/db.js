@@ -193,12 +193,17 @@ module.exports = class DB extends DBBase {
 
   /**
    * @param {number} page 
+   * @param {import('../types').WhereStructure<number>} where 
    * @returns {Promise<PaginationResult<User>>}
    */
-  async getUsers(page = 1, limit = null) {
-    return new Paginator(
-      this.knex(this.tableUnquoted('users')).select('*')
-    )
+  async getUsers(page = 1, limit = null, where = null) {
+    const knex = this.knex(this.tableUnquoted('users')).select('*');
+
+    if (where) {
+      knex.where('id', where.id.operator, where.id.value);
+    }
+
+    return new Paginator(knex)
     .page(page)
     .limit(limit);
   }
