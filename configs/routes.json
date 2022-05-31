@@ -24,6 +24,7 @@
     "api/crm/platform/gaming/regions",
     "api/crm/platform/gaming/selections",
     "api/crm/platform/gaming/tournaments",
+    "api/crm/platform/gaming/sports",
     "api/crm/platform/operator/info",
     "api/crm/platform/operator/list",
     "api/crm/platform/payments/currencies",
@@ -68,7 +69,8 @@
             "participants": true,
             "regions": true,
             "selections": true,
-            "tournaments": true
+            "tournaments": true,
+            "sports": true
           },
           "operator": {
             "info": true,

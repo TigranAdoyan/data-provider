@@ -1,9 +1,9 @@
 module.exports = () => {
   return {
-    id: '',
-    name: '',
-    code: '',
-    integrator: '',
-    product_type: ''
+    id: '',           // id          | id
+    name: '',         // provider    | title
+    code: '',         // ?
+    integrator: '',   // aggregator  |
+    product_type: ''  // type
   };
 };

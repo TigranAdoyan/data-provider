@@ -18,6 +18,7 @@
  * @typedef {import('../types').db.Fm_pre_country_prefixed} Fm_pre_country_prefixed
  * @typedef {import('../types').db.Fm_pre_event_prefixed} Fm_pre_event_prefixed
  * @typedef {import('../types').db.Fm_pre_sport_prefixed} Fm_pre_sport_prefixed
+ * @typedef {import('../types').db.Fm_pre_sport} Fm_pre_sport
  * @typedef {import('../types').db.Fm_pre_team_prefixed} Fm_pre_team_prefixed
  * 
  * @typedef {import('../types').db.Fk_operator_region_prefixed} Fk_operator_region_prefixed
@@ -168,6 +169,12 @@ module.exports = class DB extends DBBase {
           AND \`operators\`.title = '${project}'
     `);
     return this.result(result);
+  }
+
+  /** @returns {Promise<Fm_pre_sport[]>} */
+  static async getSports() {
+    const result = await this.from('obs').raw(`SELECT * FROM \`fm_pre_sport\``);
+    return DB.resultArr(result);
   }
 
 

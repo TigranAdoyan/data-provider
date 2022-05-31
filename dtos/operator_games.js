@@ -13,8 +13,8 @@ module.exports = (game_casino, operatorInfo) => {
     free_spins:       Boolean(game_casino.has_freespins),
     provider:         game_casino.provider,
     integrator:       game_casino.aggregator,
-    status:           Boolean(game_casino.deleted),                   // ?
-    adding_date:      new Date(0),                                    // ?
+    status:           Boolean(game_casino.deleted),
+    adding_date:      new Date(0),
     mobile_supported: Boolean(game_casino.device_support)
   };
 };

@@ -8,8 +8,8 @@
  */
 module.exports = (fpmts) => {
   return {
-    id: fpmts.fm_pre_market_type_id,
-    name: fpmts.fm_pre_market_type_market_type_name,
-    sport: fpmts.fm_pre_sport_sport_name
+    id:     fpmts.fm_pre_market_type_id,
+    name:   fpmts.fm_pre_market_type_market_type_name,
+    sport:  fpmts.fm_pre_sport_sport_name
   };
 };

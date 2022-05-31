@@ -7,7 +7,8 @@ const {
   sportsbook_participants,
   sportsbook_selections,
   sportsbook_matches,
-  selection2market
+  selection2market,
+  sport
 } = require('../dtos');
 
 module.exports = class GamingController {
@@ -114,6 +115,16 @@ module.exports = class GamingController {
         ...tournaments,
         data: tournaments.data.map(sportsbook_tournaments)
       }).end();
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  /** @type {import('express').RequestHandler} */
+  static sports = async (req, res, next) => {
+    try {
+      const sports = await DB.getSports();
+      res.success.data(sports.map(sport)).end();
     } catch (e) {
       next(e);
     }

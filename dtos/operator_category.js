@@ -4,11 +4,11 @@
  */
 module.exports = (operatorInfo, game_casino) => {
   return {
-    id: '',
-    operator_id: operatorInfo.project,
-    category_id: '',
-    type: game_casino.type,
-    product: game_casino.site_section,
-    order: ''
+    id:           '',
+    operator_id:  operatorInfo.project,
+    category_id:  '',
+    type:         game_casino.type,
+    product:      game_casino.site_section,
+    order:        ''
   };
 };

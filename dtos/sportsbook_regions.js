@@ -7,7 +7,7 @@
  */
 module.exports = (fpc) => {
   return {
-    id: fpc.id,
+    id:   fpc.id,
     name: fpc.title
   };
 };

@@ -34,6 +34,7 @@ module.exports = (parentRouter) => {
     validationResult,
     GamingController.tournaments
   );
+  router.get('/sports', GamingController.sports);
 
   parentRouter.use('/gaming', router);
 };

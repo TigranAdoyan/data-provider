@@ -3,6 +3,7 @@ module.exports = {
   responsible_gaming:       require('./responsible_gaming'),
   gaming_bets:              require('./gaming_bets'),
   sport_bets:               require('./sport_bets'),
+  sport:                    require('./sport'),
   sportsbook_matches:       require('./sportsbook_matches'),
   sportsbook_participants:  require('./sportsbook_participants'),
   sportsbook_tournaments:   require('./sportsbook_tournaments'),

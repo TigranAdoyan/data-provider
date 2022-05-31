@@ -9,6 +9,6 @@ module.exports = (game_casino, operatorInfo) => {
     title:        game_casino.provider,
     order:        '',                                         // ?
     integrator:   game_casino.aggregator,
-    status:       Number(!Boolean(game_casino.deleted))       // ?
+    status:       Number(!Boolean(game_casino.deleted))
   };
 };

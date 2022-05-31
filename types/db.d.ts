@@ -230,6 +230,12 @@ interface Fm_pre_sport_prefixed {
   fm_pre_sport_priority: number
 }
 
+interface Fm_pre_sport {
+  id: number,
+  sport_name: string,
+  priority: number
+}
+
 interface Fm_pre_market_type_prefixed {
   fm_pre_market_type_id: number,
   fm_pre_market_type_market_type_name: string,
@@ -305,6 +311,7 @@ export {
   Fm_pre_country_prefixed,
   Fm_pre_competition_prefixed,
   Fm_pre_sport_prefixed,
+  Fm_pre_sport,
   Fm_pre_market_type_prefixed,
   Fm_pre_team_prefixed,
   Fm_pre_price_type_prefixed,
