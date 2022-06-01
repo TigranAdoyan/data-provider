@@ -150,6 +150,23 @@
     "platform": {}
   },
 
+  "zambia": {
+    "priority": 1000,
+    "type": "allow",
+    "projects": {
+      "list": {
+        "PMBETZM": {
+          "api": {
+            "crm": {
+              "operator": true
+            }
+          }
+        }
+      }
+    },
+    "platform": {}
+  },
+
   "full_platform": {
     "priority": 1000,
     "type": "allow",
