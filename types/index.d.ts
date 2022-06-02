@@ -4,6 +4,7 @@ import * as pr from '../helpers/projects';
 import * as configs from '../helpers/configs';
 import ResponseManager from '../managers/response';
 import { number } from 'joi';
+import { ValidationChain } from 'express-validator';
 
 const projects = pr();
 
@@ -33,17 +34,29 @@ interface PaginationResult<T> {
   data: T[]
 }
 
-type Where<T> = {
-  operator: "=" | ">" | "<" | ">=" | "<=",
-  value: T
+type AllowedOperators = "=" | ">" | "<" | ">=" | "<="
+
+type Where = {
+  table: string,
+  column: string,
+  operator: AllowedOperators,
+  value: any
 }
 
-type WhereStructure<T> = {
-  [index: string]: Where<T>
+type WhereStructure = {
+  [index: string]: Where
 }
+
+type ConditionValidator<T> = <V = T>(options: {
+  field: string;
+  key: string;
+  allowedOperators?: AllowedOperators[];
+  valueValidator?: (value: V) => boolean;
+}) => ValidationChain[]
 
 export {
   db,
   PaginationResult,
-  WhereStructure
+  WhereStructure,
+  ConditionValidator
 }

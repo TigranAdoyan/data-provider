@@ -1,15 +1,23 @@
-/**
- * @typedef {import('../types').db.Fm_pre_sport_prefixed} Fm_pre_sport_prefixed
- * @typedef {import('../types').db.Fm_pre_price_type_prefixed} Fm_pre_price_type_prefixed
- */
+const DTO = require('../modules/dto');
 
-/**
- * @param {Fm_pre_price_type_prefixed & Fm_pre_sport_prefixed} fpptmt
- */
-module.exports = (fpptmt) => {
-  return {
-    id:     fpptmt.fm_pre_price_type_id,
-    name:   fpptmt.fm_pre_price_type_price_type_name,
-    sport:  fpptmt.fm_pre_sport_sport_name
-  };
-};
+module.exports = new DTO([{
+  name: 'id',
+  table: 'fm_pre_price_type',
+  column: 'id'
+}, {
+  name: 'name',
+  table: 'fm_pre_price_type',
+  column: 'price_type_name'
+}, {
+  name: 'sport',
+  table: 'fm_pre_sport',
+  column: 'sport_name'
+}], {
+  postProcess(result, fpptmt) {
+    return Object.assign(result, {
+      id:     fpptmt.fm_pre_price_type_id,
+      name:   fpptmt.fm_pre_price_type_price_type_name,
+      sport:  fpptmt.fm_pre_sport_sport_name
+    });
+  }
+});

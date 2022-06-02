@@ -8,13 +8,15 @@ module.exports = class ClientController {
   static clients = async (req, res, next) => {
     try {
       const operatorInfo = _projects.projectConf(req.project);
-      const users = await DB.project(req.project).getUsers(req.query.page, req.query.limit, {
-        id: JSON.parse(req.query.whereId)
-      });
+      const users = await DB.project(req.project).getUsers(
+        req.query.page,
+        req.query.limit,
+        req.query.where
+      );
 
       return res.success.data({
         ...users,
-        data: users.data.map(user => clients(user, operatorInfo))
+        data: users.data.map(user => clients.process(user, operatorInfo))
       }).end();
     } catch (e) {
       next(e);

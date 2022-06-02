@@ -40,33 +40,93 @@ module.exports = {
     ]
   },
 
-  /** 
-   * @param {string} field 
-   * @param {(value: any) => boolean} operatorValueValidator 
+  /**
+   * @param {{
+   *  field: string,
+   *  allowedKeys: string[]
+   * }} options 
+   * @returns 
    */
-  operatorValidator(field, operatorValueValidator) {
-    return [
-      query(field).custom(value => {
+  fieldKeysWhitelist(options) {
+    const validatorsArr = [
+      query(options.field).custom(value => {
         if (!value) return true;
 
         try {
-          const parsed = JSON.parse(value);
-          return allowedOperators.includes(parsed.operator);
+          JSON.parse(value);
+          return true;
         } catch (e) {
           return false;
         }
-      }).withMessage('invalid operator, allowed (' + allowedOperators.join(', ') + ')'),
+      }).withMessage(`Invalid json`),
 
-      query(field).custom(value => {
+      query(options.field).custom(value => {
         if (!value) return true;
 
-        try {
-          const parsed = JSON.parse(value);
-          return operatorValueValidator(parsed.value);
-        } catch (e) {
-          return false;
+        const parsed = JSON.parse(value);
+        for (const key in parsed) {
+          if (!options.allowedKeys.includes(key)) {
+            validatorsArr[1].withMessage(`invalid key "${key}", allowed ${options.allowedKeys.join(', ')}`);
+            return false;
+          }
         }
+        return true;
       })
-    ]
+    ];
+
+    return validatorsArr;
+  },
+
+  /** 
+   * @template T
+   * @type {import('../types').ConditionValidator<T>}
+   */
+  conditionValidator(options) {
+    options = Object.assign({
+      allowedOperators,
+      valueValidator: () => true
+    }, options);
+
+    const validatorsArr = [
+      query(options.field).custom(value => {
+        if (!value) return true;
+
+        try {
+          JSON.parse(value);
+          return true;
+        } catch (e) {
+          validatorsArr[0].withMessage(`Invalid json for "${options.field}"`);
+          return false;
+        }
+      }),
+
+      query(options.field).custom((value) => {
+        if (!value) return true;
+
+        const parsed = JSON.parse(value);
+        if (!parsed[options.key]) return true;
+        if (options.allowedOperators.includes(parsed[options.key].operator)) {
+          return true;
+        }
+
+        validatorsArr[1].withMessage(`invalid operator, allowed ${options.allowedOperators.join(', ')}`);
+        return false;
+      }),
+
+      query(options.field).custom((value) => {
+        if (!value) return true;
+
+        const parsed = JSON.parse(value);
+        if (!parsed[options.key]) return true;
+        if (options.valueValidator(parsed[options.key].value)) {
+          return true;
+        }
+
+        validatorsArr[2].withMessage(`invalid value for "${options.field}"."${options.key}" => ${parsed[options.key].value}`);
+        return false;
+      })
+    ];
+
+    return validatorsArr;
   }
 };

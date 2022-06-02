@@ -68,6 +68,22 @@ module.exports = class DBBase {
     return this._knex.get(db);
   }
 
+  /**
+   * @param {Knex} knex 
+   * @param {import('../types').WhereStructure} conditions 
+   */
+  static applyConditions(knex, conditions) {
+    if (conditions) {
+      for (const field in conditions) {
+        knex.where(
+          `${conditions[field].table}.${conditions[field].column}`,
+          conditions[field].operator,
+          conditions[field].value
+        );
+      }
+    }
+  }
+
   /** @protected */
   static resultArr(result) {
     return (result && result[0]) || null;

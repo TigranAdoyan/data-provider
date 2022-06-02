@@ -38,7 +38,7 @@ module.exports = class GamingController {
       const selections = await DB.sportsBookSelections(req.query.page, req.query.limit);
       res.success.data({
         ...selections,
-        data: selections.data.map(selection2market)
+        data: selections.data.map(selection2market.process)
       }).end();
     } catch (e) {
       next(e);
@@ -48,10 +48,15 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static markets = async (req, res, next) => {
     try {
-      const markets = await DB.sportsBookMarkets(req.query.page, req.query.limit);
+      const markets = await DB.sportsBookMarkets(
+        req.query.page,
+        req.query.limit,
+        req.query.where
+      );
+
       res.success.data({
         ...markets,
-        data: markets.data.map(sportsbook_markets)
+        data: markets.data.map(sportsbook_markets.process)
       }).end();
     } catch (e) {
       next(e);
@@ -61,10 +66,14 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static matches = async (req, res, next) => {
     try {
-      const matches = await DB.sportsBookMatches(req.query.page, req.query.limit);
+      const matches = await DB.sportsBookMatches(
+        req.query.page,
+        req.query.limit,
+        req.query.where
+      );
       res.success.data({
         ...matches,
-        data: matches.data.map(sportsbook_matches)
+        data: matches.data.map(sportsbook_matches.process)
       }).end();
     } catch (e) {
       next(e);
@@ -74,10 +83,14 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static participants = async (req, res, next) => {
     try {
-      const participants = await DB.sportsBookParticipants(req.query.page, req.query.limit);
+      const participants = await DB.sportsBookParticipants(
+        req.query.page,
+        req.query.limit,
+        req.query.where
+      );
       res.success.data({
         ...participants,
-        data: participants.data.map(sportsbook_participants)
+        data: participants.data.map(sportsbook_participants.process)
       }).end();
     } catch (e) {
       next(e);
@@ -88,7 +101,7 @@ module.exports = class GamingController {
   static regions = async (req, res, next) => {
     try {
       const regions = await DB.sportsBookRegions();
-      res.success.data(regions.map(sportsbook_regions)).end();
+      res.success.data(regions.map(sportsbook_regions.process)).end();
     } catch (e) {
       next(e);
     }
@@ -97,10 +110,15 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static selections = async (req, res, next) => {
     try {
-      const selections = await DB.sportsBookSelections(req.query.page, req.query.limit);
+      const selections = await DB.sportsBookSelections(
+        req.query.page,
+        req.query.limit,
+        req.query.where
+      );
+
       res.success.data({
         ...selections,
-        data: selections.data.map(sportsbook_selections)
+        data: selections.data.map(sportsbook_selections.process)
       }).end();
     } catch (e) {
       next(e);
@@ -110,10 +128,15 @@ module.exports = class GamingController {
   /** @type {import('express').RequestHandler} */
   static tournaments = async (req, res, next) => {
     try {
-      const tournaments = await DB.sportsBookTournaments(req.query.page, req.query.limit);
+      const tournaments = await DB.sportsBookTournaments(
+        req.query.page,
+        req.query.limit,
+        req.query.where
+      );
+
       res.success.data({
         ...tournaments,
-        data: tournaments.data.map(sportsbook_tournaments)
+        data: tournaments.data.map(sportsbook_tournaments.process)
       }).end();
     } catch (e) {
       next(e);
@@ -124,7 +147,7 @@ module.exports = class GamingController {
   static sports = async (req, res, next) => {
     try {
       const sports = await DB.getSports();
-      res.success.data(sports.map(sport)).end();
+      res.success.data(sports.map(sport.process)).end();
     } catch (e) {
       next(e);
     }

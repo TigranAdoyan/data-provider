@@ -32,11 +32,15 @@ module.exports = class OperatorController {
   static category = async (req, res, next) => {
     try {
       const operatorInfo = _projects.projectConf(req.project);
-      const categories = await DB.project(req.project).getCasinoCategories(req.query.page, req.query.limit);
+      const categories = await DB.project(req.project).getCasinoCategories(
+        req.query.page,
+        req.query.limit,
+        // req.query.where ? JSON.parse(req.query.where) : null
+      );
 
       res.success.data({
         ...categories,
-        data: categories.data.map(category => operator_category(operatorInfo, category))
+        data: categories.data.map(category => operator_category.process(operatorInfo, category))
       }).end();
     } catch (e) {
       next(e);
@@ -47,11 +51,15 @@ module.exports = class OperatorController {
   static games = async (req, res, next) => {
     try {
       const operatorInfo = _projects.projectConf(req.project);
-      const games_casino = await DB.project(req.project).getGamesCasino(req.query.page, req.query.limit);
+      const games_casino = await DB.project(req.project).getGamesCasino(
+        req.query.page,
+        req.query.limit,
+        req.query.where
+      );
 
       res.success.data({
         ...games_casino,
-        data: games_casino.data.map(game_casino => operator_games(game_casino, operatorInfo))
+        data: games_casino.data.map(game_casino => operator_games.process(game_casino, operatorInfo))
       }).end();
     } catch (e) {
       next(e);
@@ -62,7 +70,7 @@ module.exports = class OperatorController {
   static infoO = async (req, res, next) => {
     try {
       const operatorInfo = _projects.projectConf(req.project);
-      return res.success.data(operator_info(operatorInfo)).end();
+      return res.success.data(operator_info.process(operatorInfo)).end();
     } catch (e) {
       next(e);
     }
@@ -72,11 +80,15 @@ module.exports = class OperatorController {
   static providers = async (req, res, next) => {
     try {
       const operatorInfo = _projects.projectConf(req.project);
-      const games_casino = await DB.project(req.project).getCasinoProviders(req.query.page, req.query.limit);
+      const games_casino = await DB.project(req.project).getCasinoProviders(
+        req.query.page,
+        req.query.limit,
+        req.query.where
+      );
 
       res.success.data({
         ...games_casino,
-        data: games_casino.data.map(game_casino => operator_providers(game_casino, operatorInfo))
+        data: games_casino.data.map(game_casino => operator_providers.process(game_casino, operatorInfo))
       }).end();
     } catch (e) {
       next(e);
@@ -96,7 +108,7 @@ module.exports = class OperatorController {
   static region2operator = async (req, res, next) => {
     try {
       const data = await DB.region2operator(req.project);
-      return res.success.data(region2operator(data)).end();
+      return res.success.data(region2operator.process(data)).end();
     } catch (e) {
       next(e);
     }

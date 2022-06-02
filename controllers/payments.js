@@ -19,7 +19,7 @@ module.exports = class PaymentsController {
   static currencies = async (req, res, next) => {
     try {
       const currenciesArr = await DB.selectCurrencies();
-      return res.success.data(currenciesArr.map(currencies)).end();
+      return res.success.data(currenciesArr.map(currencies.process)).end();
     } catch (e) {
       next(e);
     }
@@ -31,9 +31,9 @@ module.exports = class PaymentsController {
       const currenciesArr = await DB.selectCurrencies();
       return res.success.data(currenciesArr.map(curr => {
         for (const op of _projects.headers) {
-          if (op.currency === curr.currency) return exchange_hub(curr, op);
+          if (op.currency === curr.currency) return exchange_hub.process(curr, op);
         }
-        return exchange_hub(curr, {});
+        return exchange_hub.process(curr, {});
       })).end();
     } catch (e) {
       next(e);
@@ -52,7 +52,7 @@ module.exports = class PaymentsController {
       );
       return res.success.data({
         ...logs,
-        data: logs.data.map(log => balance_log(log, operatorInfo))
+        data: logs.data.map(log => balance_log.process(log, operatorInfo))
       }).end();
     } catch (e) {
       next(e);
