@@ -10,7 +10,9 @@ const router = Router();
 /** @param {Router} parentRouter */
 module.exports = (parentRouter) => {
   router.get('/abstract2tag', OperatorController.abstract2tag);
+
   router.get('/bonuses', OperatorController.bonuses);
+
   router.get('/category', 
     paginator,
     // fieldKeysWhitelist({
@@ -27,6 +29,7 @@ module.exports = (parentRouter) => {
     validationResult,
     OperatorController.category
   );
+
   router.get('/games',
     paginator,
     fieldKeysWhitelist({
@@ -44,7 +47,9 @@ module.exports = (parentRouter) => {
     setRealKeys('query', 'where', operator_games),
     OperatorController.games
   );
+
   router.get('/info', OperatorController.infoO);
+
   router.get('/providers',
     paginator,
     fieldKeysWhitelist({
@@ -62,8 +67,11 @@ module.exports = (parentRouter) => {
     setRealKeys('query', 'where', operator_providers),
     OperatorController.providers
   );
+
   router.get('/participant2operator', OperatorController.participant2operator);
+
   router.get('/region2operator', OperatorController.region2operator);
+
   router.get('/tournament2operator', OperatorController.tournament2operator);
 
   parentRouter.use('/operator', router);

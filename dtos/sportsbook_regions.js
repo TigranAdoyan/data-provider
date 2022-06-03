@@ -1,3 +1,7 @@
+/**
+ * @typedef {import('../types/db').Fm_pre_country} Country
+ */
+
 const DTO = require('../modules/dto');
 
 module.exports = new DTO([{
@@ -9,6 +13,7 @@ module.exports = new DTO([{
   table: 'fm_pre_country',
   column: 'title'
 }], {
+  /** @param {Country} fpc */
   postProcess(result, fpc) {
     return Object.assign(result, {
       id:   fpc.id,
