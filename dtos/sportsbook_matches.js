@@ -21,9 +21,9 @@ module.exports = new DTO([{
   table: 'fm_pre_sport',
   column: 'id',
 }, {
-  name: 'region',
+  name: 'region_id',
   table: 'fm_pre_country',
-  column: 'title',
+  column: 'id',
 }, {
   name: 'tournament',
   table: 'fm_pre_competition',
@@ -43,7 +43,7 @@ module.exports = new DTO([{
       id:                 fpscc.fm_pre_event_id,
       match:              fpscc.fm_pre_event_event_name,
       sport_id:           fpscc.fm_pre_sport_id,
-      region:             fpscc.fm_pre_country_title,
+      region_id:          fpscc.fm_pre_country_id,
       tournament:         fpscc.fm_pre_competition_competition_name,
       participants:       [fpscc.fm_pre_event_t1_id, fpscc.fm_pre_event_t2_id],
       start_time:         fpscc.fm_pre_event_event_start_time,

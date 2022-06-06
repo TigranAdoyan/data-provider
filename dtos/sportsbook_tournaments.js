@@ -19,17 +19,17 @@ module.exports = new DTO([{
   table: 'fm_pre_sport',
   column: 'id'
 }, {
-  name: 'region',
+  name: 'region_id',
   table: 'fm_pre_country',
-  column: 'title'
+  column: 'id'
 }], {
   /** @param {Competition & Country & Sport} fp_ccs */
   postProcess(result, fp_ccs) {
     return Object.assign(result, {
-      id:     fp_ccs.fm_pre_competition_id,
-      name:   fp_ccs.fm_pre_competition_competition_name,
+      id:        fp_ccs.fm_pre_competition_id,
+      name:      fp_ccs.fm_pre_competition_competition_name,
       sport_id:  fp_ccs.fm_pre_sport_id,
-      region: fp_ccs.fm_pre_country_title
+      region_id: fp_ccs.fm_pre_country_id
     });
   }
 });

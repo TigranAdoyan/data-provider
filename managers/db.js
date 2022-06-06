@@ -116,7 +116,8 @@ module.exports = class DB extends DBBase {
       .select(
         ...teamFields.getPrefixed(),
         ...sportFields.getPrefixed()
-      );
+      )
+      .orderBy('fm_pre_team.id', 'ASC');
 
     DB.applyConditions(knex, conditions);
 
@@ -147,6 +148,7 @@ module.exports = class DB extends DBBase {
         ...marketTypeFields.getPrefixed(),
         ...sportFields.getPrefixed()
       )
+      .orderBy('fm_pre_price_type.id', 'asc')
 
     DB.applyConditions(knex, conditions);
 
