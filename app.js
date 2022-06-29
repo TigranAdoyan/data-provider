@@ -21,7 +21,7 @@ _projects.init(knex, async (result, err) => {
     console.log('Listening on PORT =>', process.env.PORT);
   });
 
-  app.use(logger);
+  if (process.env.NODE_ENV != 'production') app.use(logger);
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
   app.use(response);
