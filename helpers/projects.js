@@ -366,8 +366,8 @@ module.exports = function () {
         headers: [],
         flat: [],
         init (knex, cb) {
-            var _this = this;
-            var pms = [];
+            const _this = this;
+            const pms = [];
             pms.push(knex.raw("SELECT * FROM `betoffice`.`projects` WHERE header=1"));
             pms.push(knex.raw("SELECT * FROM `betoffice`.`projects`"));
 

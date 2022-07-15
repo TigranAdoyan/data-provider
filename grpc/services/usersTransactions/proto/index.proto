@@ -1,0 +1,19 @@
+syntax = 'proto3';
+
+package usersTransactions;
+
+message GetUsersTransactionsReq {
+  string project = 1;
+  string startDate = 2;
+  string endDate = 3;
+}
+
+message GetUsersTransactionsRes {
+  string project = 1;
+  int32 totalCount = 2;
+  int32 totalAmount = 3;
+}
+
+service usersTransactions {
+  rpc GetUsersTransactions(GetUsersTransactionsReq) returns (GetUsersTransactionsRes);
+}

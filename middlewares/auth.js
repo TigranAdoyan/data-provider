@@ -17,7 +17,7 @@ module.exports = {
       }
     }
   ],
-  
+
   /** @type {import('express').RequestHandler[]} */
   access: [
     header('authorization').exists().withMessage('Access token is required'),
